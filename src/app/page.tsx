@@ -214,9 +214,9 @@ function ContactPage() {
       </div>
 
       <img
-        src="/bjr.png"
-        alt="Illustration"
-        className="absolute bottom-8 left-8 w-40 h-32 object-cover rounded-md"
+        src="/Arch%20DEF%20OIKOS.png"
+        alt="Oikos architecture"
+        className="absolute bottom-8 left-8 w-44 h-32 object-contain"
       />
       <img
         src="/logo.png"

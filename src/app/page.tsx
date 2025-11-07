@@ -2,27 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/* --- Données des bandeaux --- */
-const TEXTES_BANDEAUX = [
-  {
-    mot: "patrimoine",
-    texte:
-      "Nous restaurons chaque lieu avec respect pour ses traces d’origine, afin de préserver l’âme des bâtisses et révéler un héritage contemporain.",
-    video: "/videos/eau.mp4",
-  },
-  {
-    mot: "lieux de vie",
-    texte:
-      "Nous imaginons des espaces chaleureux et lumineux, pensés pour le quotidien, où chaque détail invite au partage et au confort.",
-    video: "/videos/bois.mp4",
-  },
-  {
-    mot: "rentabilité",
-    texte:
-      "Investir dans le patrimoine devient un levier durable : nous alignons esthétique, qualité et valeur à long terme pour conjuguer plaisir et performance.",
-    video: "/videos/feu.mp4",
-  },
-];
+/* --- Données du bandeau principal --- */
+const BANDEAU_PRINCIPAL = {
+  mot: "patrimoine",
+  texte:
+    "Nous restaurons chaque lieu avec respect pour ses traces d’origine, afin de préserver l’âme des bâtisses et révéler un héritage contemporain.",
+  video: "/videos/eau.mp4",
+};
 
 /* --- Bandeau sans images, avec accordéon CSS pur --- */
 function Bandeau({
@@ -42,6 +28,7 @@ function Bandeau({
     if (!element) return;
 
     const tryPlay = () => {
+      element.playbackRate = 0.75;
       element.play().catch(() => {
         /* some browsers still block autoplay even when muted */
       });
@@ -53,7 +40,7 @@ function Bandeau({
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden rounded-2xl shadow-sm bg-neutral-200">
+    <div className="relative w-full overflow-hidden bg-neutral-200 min-h-[420px] md:min-h-[520px]">
       {video && (
         <>
           <video
@@ -72,9 +59,9 @@ function Bandeau({
       <div className="relative">
         <button
           onClick={() => setOpen((v) => !v)}
-          className="w-full text-left h-24 md:h-36 px-6 bg-neutral-900/35 hover:bg-neutral-900/45 transition-colors flex items-center"
+          className="w-full text-left min-h-[420px] md:min-h-[520px] px-6 md:px-12 py-10 bg-neutral-900/35 hover:bg-neutral-900/45 transition-colors flex items-end"
         >
-          <span className="font-heading text-white text-2xl md:text-4xl">
+          <span className="font-heading text-white text-2xl md:text-5xl">
             {mot}
           </span>
         </button>
@@ -187,11 +174,13 @@ export default function Page() {
             </div>
           </section>
 
-          {/* 2. Trois bandeaux */}
-          <section className="container mx-auto px-4 md:px-8 mt-16 md:mt-24 pb-16 md:pb-24 space-y-6 md:space-y-8">
-            {TEXTES_BANDEAUX.map((b, i) => (
-              <Bandeau key={i} mot={b.mot} texte={b.texte} video={b.video} />
-            ))}
+          {/* 2. Bandeau plein écran */}
+          <section className="mt-16 md:mt-24 pb-16 md:pb-24">
+            <Bandeau
+              mot={BANDEAU_PRINCIPAL.mot}
+              texte={BANDEAU_PRINCIPAL.texte}
+              video={BANDEAU_PRINCIPAL.video}
+            />
           </section>
 
           {/* 3. Philosophie */}

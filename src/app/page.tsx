@@ -197,7 +197,7 @@ function Bandeau({
   );
 }
 
-/* --- Page Contact --- */
+/* --- Pages statiques --- */
 function ContactPage() {
   return (
     <div className="min-h-screen bg-[#F2EDE6] flex flex-col justify-center items-center text-center relative">
@@ -227,9 +227,128 @@ function ContactPage() {
   );
 }
 
+type TextSection = { title: string; content: string[] };
+
+function TextContentPage({
+  eyebrow,
+  title,
+  intro,
+  sections,
+}: {
+  eyebrow: string;
+  title: string;
+  intro: string;
+  sections: TextSection[];
+}) {
+  return (
+    <div className="min-h-screen bg-[#F2EDE6] flex flex-col justify-center px-6 md:px-12 py-16 text-neutral-900">
+      <div className="max-w-4xl mx-auto space-y-12">
+        <div className="space-y-3 text-center">
+          <p className="font-heading-alt text-xs md:text-sm tracking-[0.4em] uppercase text-neutral-500">
+            {eyebrow}
+          </p>
+          <h1 className="font-heading text-2xl md:text-4xl">{title}</h1>
+          <p className="text-base md:text-lg leading-relaxed text-neutral-700">{intro}</p>
+        </div>
+        <div className="space-y-10">
+          {sections.map((section) => (
+            <section key={section.title} className="space-y-3 bg-white/70 rounded-2xl p-6 md:p-8 shadow-sm">
+              <h2 className="font-heading text-lg md:text-xl text-neutral-800">{section.title}</h2>
+              {section.content.map((paragraph, idx) => (
+                <p key={idx} className="leading-relaxed text-sm md:text-base text-neutral-700">
+                  {paragraph}
+                </p>
+              ))}
+            </section>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PrivacyPage() {
+  const sections: TextSection[] = [
+    {
+      title: "Données collectées",
+      content: [
+        "Nous ne collectons que les informations strictement nécessaires à la prise de contact (nom, adresse e-mail, numéro de téléphone, contenu du message). Aucun suivi publicitaire ni profilage automatisé n’est mis en place.",
+      ],
+    },
+    {
+      title: "Utilisation et conservation",
+      content: [
+        "Les données partagées servent uniquement à répondre aux sollicitations et à assurer le suivi des dossiers en cours. Elles sont conservées pour la durée strictement nécessaire aux échanges commerciaux, puis archivées de manière sécurisée.",
+      ],
+    },
+    {
+      title: "Vos droits",
+      content: [
+        "Vous pouvez à tout moment demander l’accès, la rectification ou la suppression de vos informations personnelles, ainsi que limiter leur traitement. Pour exercer ces droits, écrivez-nous à l’adresse : lbernaz@oikos-heritage.com.",
+      ],
+    },
+    {
+      title: "Sécurité",
+      content: [
+        "Nous mettons en place des mesures organisationnelles et techniques proportionnées pour préserver la confidentialité et l’intégrité des données (accès restreint, stockage protégé, revue régulière des accès).",
+      ],
+    },
+  ];
+
+  return (
+    <TextContentPage
+      eyebrow="Confidentialité"
+      title="Politique de confidentialité"
+      intro="Nous protégeons les informations confiées par nos clients et partenaires avec une attention particulière. Voici comment nous traitons et sécurisons les données personnelles."
+      sections={sections}
+    />
+  );
+}
+
+function LegalPage() {
+  const sections: TextSection[] = [
+    {
+      title: "Éditeur du site",
+      content: [
+        "Oikos Heritage – Louise Bernaz",
+        "Siège social : 12 rue fictive, 75000 Paris, France",
+        "Contact : lbernaz@oikos-heritage.com | +33 (0)6 20 30 06 19",
+      ],
+    },
+    {
+      title: "Responsabilité éditoriale",
+      content: [
+        "La directrice de la publication est Louise Bernaz, en sa qualité de fondatrice. Les contenus visuels et textuels sont la propriété exclusive d’Oikos Heritage, toute reproduction est soumise à autorisation préalable.",
+      ],
+    },
+    {
+      title: "Hébergement",
+      content: [
+        "Le site est hébergé par Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.",
+        "Contact : support@vercel.com",
+      ],
+    },
+    {
+      title: "Propriété intellectuelle",
+      content: [
+        "Les logos, typographies, photographies et contenus sont protégés par le droit d’auteur. Toute utilisation non autorisée pourra faire l’objet de poursuites conformément aux articles L.335-2 et suivants du Code de la propriété intellectuelle.",
+      ],
+    },
+  ];
+
+  return (
+    <TextContentPage
+      eyebrow="Légal"
+      title="Mentions légales"
+      intro="Ces informations présentent les coordonnées de l’éditeur, de l’hébergeur ainsi que le cadre juridique applicable au site Oikos Heritage."
+      sections={sections}
+    />
+  );
+}
+
 /* --- PAGE PRINCIPALE --- */
 export default function Page() {
-  const [page, setPage] = useState<"home" | "contact">("home");
+  const [page, setPage] = useState<"home" | "contact" | "privacy" | "legal">("home");
   const [showHeroLogo, setShowHeroLogo] = useState(false);
 
   useEffect(() => {
@@ -351,17 +470,27 @@ export default function Page() {
             </div>
           </section>
         </>
-      ) : (
+      ) : page === "contact" ? (
         <ContactPage />
+      ) : page === "privacy" ? (
+        <PrivacyPage />
+      ) : (
+        <LegalPage />
       )}
 
       {page === "home" && (
         <footer className="container mx-auto px-4 md:px-8 mt-36 pb-20 border-top border-neutral-300/70 relative">
           <div className="flex flex-col items-start gap-2 text-[0.65rem] md:text-xs font-heading-alt uppercase tracking-[0.35em] text-neutral-700">
-            <button className="hover:opacity-70 transition-opacity">
+            <button
+              className="hover:opacity-70 transition-opacity text-left"
+              onClick={() => setPage("privacy")}
+            >
               Politique de confidentialité
             </button>
-            <button className="hover:opacity-70 transition-opacity">
+            <button
+              className="hover:opacity-70 transition-opacity text-left"
+              onClick={() => setPage("legal")}
+            >
               Mentions légales
             </button>
           </div>

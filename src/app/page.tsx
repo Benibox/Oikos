@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /* --- Données des bandeaux --- */
 const TEXTES_BANDEAUX = [
@@ -35,17 +35,36 @@ function Bandeau({
   video?: string;
 }) {
   const [open, setOpen] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const element = videoRef.current;
+    if (!element) return;
+
+    const tryPlay = () => {
+      element.play().catch(() => {
+        /* some browsers still block autoplay even when muted */
+      });
+    };
+
+    tryPlay();
+    element.addEventListener("loadeddata", tryPlay);
+    return () => element.removeEventListener("loadeddata", tryPlay);
+  }, []);
+
   return (
     <div className="relative w-full overflow-hidden rounded-2xl shadow-sm bg-neutral-200">
       {video && (
         <>
           <video
+            ref={videoRef}
             className="absolute inset-0 h-full w-full object-cover pointer-events-none"
             src={video}
             autoPlay
             loop
             muted
             playsInline
+            preload="auto"
           />
           <div className="absolute inset-0 bg-neutral-900/30" aria-hidden="true" />
         </>

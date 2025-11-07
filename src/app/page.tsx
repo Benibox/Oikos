@@ -184,7 +184,7 @@ export default function Page() {
           </section>
 
           {/* 3. Philosophie */}
-          <section className="container mx-auto px-4 md:px-8 py-32">
+          <section className="container mx-auto px-4 md:px-8 py-32 relative">
             <div className="max-w-4xl mx-auto">
               <h2 className="font-heading text-2xl md:text-3xl mb-12 text-neutral-800">
                 Philosophie
@@ -223,6 +223,11 @@ export default function Page() {
                 </article>
               </div>
             </div>
+            <img
+              src="/logo.png"
+              alt="Louise"
+              className="absolute bottom-6 right-4 h-16 md:h-20 w-auto opacity-70 pointer-events-none"
+            />
           </section>
         </>
       ) : (

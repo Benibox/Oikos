@@ -7,7 +7,7 @@ const BANDEAU_PRINCIPAL = {
   mot: "patrimoine",
   texte:
     "Nous restaurons chaque lieu avec respect pour ses traces d’origine, afin de préserver l’âme des bâtisses et révéler un héritage contemporain.",
-  video: "/videos/eau.mp4",
+  video: "/videos/videobien.mp4",
 };
 
 /* --- Bandeau sans images, avec accordéon CSS pur --- */

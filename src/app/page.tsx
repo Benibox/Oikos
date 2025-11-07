@@ -77,7 +77,7 @@ function Bandeau({
             playsInline
             preload="auto"
           />
-          <div className="absolute inset-0 bg-neutral-900/30" aria-hidden="true" />
+          <div className="absolute inset-0 bg-neutral-900/15" aria-hidden="true" />
         </>
       )}
       <div className="relative">
@@ -283,7 +283,7 @@ export default function Page() {
             <img
               src="/logo.png"
               alt="Louise"
-              className="absolute bottom-6 right-4 h-16 md:h-20 w-auto opacity-70 pointer-events-none"
+              className="absolute -bottom-8 right-10 h-16 md:h-20 w-auto opacity-70 pointer-events-none"
             />
           </section>
         </>
@@ -292,7 +292,7 @@ export default function Page() {
       )}
 
       {page === "home" && (
-        <footer className="container mx-auto px-4 md:px-8 mt-28 pb-16 border-top border-neutral-300/70">
+        <footer className="container mx-auto px-4 md:px-8 mt-36 pb-20 border-top border-neutral-300/70 relative">
           <div className="flex flex-col items-start gap-2 text-[0.65rem] md:text-xs font-heading-alt uppercase tracking-[0.35em] text-neutral-700">
             <button className="hover:opacity-70 transition-opacity">
               Politique de confidentialité
@@ -301,6 +301,11 @@ export default function Page() {
               Mentions légales
             </button>
           </div>
+          <img
+            src="/logo.png"
+            alt="Louise"
+            className="absolute right-8 bottom-16 h-14 w-auto opacity-70 pointer-events-none"
+          />
         </footer>
       )}
     </div>

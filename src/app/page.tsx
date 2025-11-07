@@ -230,8 +230,8 @@ export default function Page() {
       )}
 
       {page === "home" && (
-        <footer className="container mx-auto px-4 md:px-8 py-12 border-top border-neutral-300/70">
-          <div className="flex flex-col items-start gap-2 text-xs md:text-sm font-heading-alt uppercase tracking-wide">
+        <footer className="container mx-auto px-4 md:px-8 mt-28 pb-16 border-top border-neutral-300/70">
+          <div className="flex flex-col items-start gap-2 text-[0.65rem] md:text-xs font-heading-alt uppercase tracking-[0.35em] text-neutral-700">
             <button className="hover:opacity-70 transition-opacity">
               Politique de confidentialité
             </button>

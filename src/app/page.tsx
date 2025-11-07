@@ -314,11 +314,6 @@ export default function Page() {
                 </article>
               </div>
             </div>
-            <img
-              src="/logo.png"
-              alt="Louise"
-              className="absolute -bottom-8 right-10 h-16 md:h-20 w-auto opacity-70 pointer-events-none"
-            />
           </section>
         </>
       ) : (
@@ -335,11 +330,6 @@ export default function Page() {
               Mentions légales
             </button>
           </div>
-          <img
-            src="/logo.png"
-            alt="Louise"
-            className="absolute right-8 bottom-16 h-14 w-auto opacity-70 pointer-events-none"
-          />
         </footer>
       )}
     </div>

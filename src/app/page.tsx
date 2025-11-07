@@ -496,6 +496,12 @@ export default function Page() {
           </div>
         </footer>
       )}
+      <img
+        src="/OIKOSBRUN.png"
+        alt="Oikos Heritage"
+        className="fixed bottom-6 right-6 h-14 md:h-16 w-auto opacity-80 pointer-events-none mix-blend-multiply"
+        aria-hidden="true"
+      />
     </div>
   );
 }

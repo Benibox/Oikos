@@ -45,31 +45,50 @@ function Bandeau({
   }, []);
 
   useEffect(() => {
+    const KEYWORD_BASE_DELAY = 600;
+    const KEYWORD_VISIBLE_DURATION = 1200;
+    const KEYWORD_STAGGER = 1400;
+    const LOOP_PAUSE = 800;
+
     let timers: ReturnType<typeof setTimeout>[] = [];
     let loop: ReturnType<typeof setInterval> | null = null;
+
+    const scheduleVisibility = (index: number, visible: boolean) => {
+      setVisibleKeywords((prev) => {
+        if (prev[index] === visible) return prev;
+        const next = [...prev];
+        next[index] = visible;
+        return next;
+      });
+    };
 
     const startSequence = () => {
       timers.forEach((timer) => clearTimeout(timer));
       timers = [];
       setVisibleKeywords(BANDEAU_KEYWORDS.map(() => false));
+
       BANDEAU_KEYWORDS.forEach((_, index) => {
+        const appearAt = KEYWORD_BASE_DELAY + index * KEYWORD_STAGGER;
+        const disappearAt = appearAt + KEYWORD_VISIBLE_DURATION;
+
         timers.push(
-          setTimeout(() => {
-            setVisibleKeywords((prev) => {
-              const next = [...prev];
-              next[index] = true;
-              return next;
-            });
-          }, 500 * index)
+          setTimeout(() => scheduleVisibility(index, true), appearAt)
+        );
+        timers.push(
+          setTimeout(() => scheduleVisibility(index, false), disappearAt)
         );
       });
     };
 
     startSequence();
-    loop = setInterval(
-      startSequence,
-      BANDEAU_KEYWORDS.length * 500 + 2500
-    );
+
+    const totalDuration =
+      KEYWORD_BASE_DELAY +
+      (BANDEAU_KEYWORDS.length - 1) * KEYWORD_STAGGER +
+      KEYWORD_VISIBLE_DURATION +
+      LOOP_PAUSE;
+
+    loop = setInterval(startSequence, totalDuration);
 
     return () => {
       timers.forEach((timer) => clearTimeout(timer));
@@ -100,7 +119,7 @@ function Bandeau({
           className="relative w-full min-h-[420px] md:min-h-[520px] px-6 md:px-12 py-10 bg-neutral-900/35 hover:bg-neutral-900/45 transition-colors overflow-hidden flex items-center justify-center"
         >
           <span className="sr-only">{`Afficher ${mot}`}</span>
-          <div className="grid w-full grid-cols-3 items-end gap-4 font-heading text-white text-xs md:text-2xl tracking-[0.4em]">
+          <div className="grid w-full grid-cols-3 items-end gap-4 font-heading text-white text-[0.55rem] md:text-xl tracking-[0.4em]">
             {BANDEAU_KEYWORDS.map((motCle, index) => (
               <span
                 key={motCle}

@@ -45,21 +45,35 @@ function Bandeau({
   }, []);
 
   useEffect(() => {
-    const timers: ReturnType<typeof setTimeout>[] = [];
-    BANDEAU_KEYWORDS.forEach((_, index) => {
-      timers.push(
-        setTimeout(() => {
-          setVisibleKeywords((prev) => {
-            const next = [...prev];
-            next[index] = true;
-            return next;
-          });
-        }, 800 * index)
-      );
-    });
+    let timers: ReturnType<typeof setTimeout>[] = [];
+    let loop: ReturnType<typeof setInterval> | null = null;
+
+    const startSequence = () => {
+      timers.forEach((timer) => clearTimeout(timer));
+      timers = [];
+      setVisibleKeywords(BANDEAU_KEYWORDS.map(() => false));
+      BANDEAU_KEYWORDS.forEach((_, index) => {
+        timers.push(
+          setTimeout(() => {
+            setVisibleKeywords((prev) => {
+              const next = [...prev];
+              next[index] = true;
+              return next;
+            });
+          }, 500 * index)
+        );
+      });
+    };
+
+    startSequence();
+    loop = setInterval(
+      startSequence,
+      BANDEAU_KEYWORDS.length * 500 + 2500
+    );
 
     return () => {
       timers.forEach((timer) => clearTimeout(timer));
+      if (loop) clearInterval(loop);
     };
   }, []);
 
@@ -93,14 +107,15 @@ function Bandeau({
                 className={[
                   "transition-all duration-700 ease-out uppercase",
                   visibleKeywords[index]
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-3",
+                    ? "opacity-100 translate-y-0 scale-100 blur-0"
+                    : "opacity-0 translate-y-3 scale-95 blur-sm",
                   index === 0
                     ? "justify-self-start text-left"
                     : index === 1
                       ? "justify-self-center text-center"
                       : "justify-self-end text-right",
                 ].join(" ")}
+                style={{ transitionDelay: `${index * 80}ms` }}
               >
                 {motCle}
               </span>
@@ -170,7 +185,7 @@ export default function Page() {
     }
 
     setShowHeroLogo(false);
-    const timer = setTimeout(() => setShowHeroLogo(true), 3000);
+    const timer = setTimeout(() => setShowHeroLogo(true), 1200);
     return () => clearTimeout(timer);
   }, [page]);
 
@@ -208,8 +223,8 @@ export default function Page() {
               src="/logo.png"
               alt="Louise"
               className={[
-                "h-44 md:h-64 w-auto mix-blend-multiply -translate-y-10 transition-opacity duration-1000 ease-out",
-                showHeroLogo ? "opacity-100" : "opacity-0",
+                "h-44 md:h-64 w-auto mix-blend-multiply -translate-y-10 transition duration-2000 ease-out",
+                showHeroLogo ? "opacity-100 scale-100" : "opacity-0 scale-90",
               ].join(" ")}
             />
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-neutral-700/70 pointer-events-none">

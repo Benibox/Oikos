@@ -10,6 +10,8 @@ const BANDEAU_PRINCIPAL = {
   video: "/videos/videobien.mp4",
 };
 
+const BANDEAU_KEYWORDS = ["patrimoine", "lieux de vie", "rentabilité"];
+
 /* --- Bandeau sans images, avec accordéon CSS pur --- */
 function Bandeau({
   mot,
@@ -22,6 +24,9 @@ function Bandeau({
 }) {
   const [open, setOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [visibleKeywords, setVisibleKeywords] = useState<boolean[]>(
+    () => BANDEAU_KEYWORDS.map(() => false)
+  );
 
   useEffect(() => {
     const element = videoRef.current;
@@ -37,6 +42,25 @@ function Bandeau({
     tryPlay();
     element.addEventListener("loadeddata", tryPlay);
     return () => element.removeEventListener("loadeddata", tryPlay);
+  }, []);
+
+  useEffect(() => {
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    BANDEAU_KEYWORDS.forEach((_, index) => {
+      timers.push(
+        setTimeout(() => {
+          setVisibleKeywords((prev) => {
+            const next = [...prev];
+            next[index] = true;
+            return next;
+          });
+        }, 800 * index)
+      );
+    });
+
+    return () => {
+      timers.forEach((timer) => clearTimeout(timer));
+    };
   }, []);
 
   return (
@@ -59,11 +83,29 @@ function Bandeau({
       <div className="relative">
         <button
           onClick={() => setOpen((v) => !v)}
-          className="w-full text-left min-h-[420px] md:min-h-[520px] px-6 md:px-12 py-10 bg-neutral-900/35 hover:bg-neutral-900/45 transition-colors flex items-end"
+          className="relative w-full min-h-[420px] md:min-h-[520px] px-6 md:px-12 py-10 bg-neutral-900/35 hover:bg-neutral-900/45 transition-colors overflow-hidden flex items-center justify-center"
         >
-          <span className="font-heading text-white text-2xl md:text-5xl">
-            {mot}
-          </span>
+          <span className="sr-only">{`Afficher ${mot}`}</span>
+          <div className="grid w-full grid-cols-3 items-end gap-4 font-heading text-white text-xs md:text-2xl tracking-[0.4em]">
+            {BANDEAU_KEYWORDS.map((motCle, index) => (
+              <span
+                key={motCle}
+                className={[
+                  "transition-all duration-700 ease-out uppercase",
+                  visibleKeywords[index]
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-3",
+                  index === 0
+                    ? "justify-self-start text-left"
+                    : index === 1
+                      ? "justify-self-center text-center"
+                      : "justify-self-end text-right",
+                ].join(" ")}
+              >
+                {motCle}
+              </span>
+            ))}
+          </div>
         </button>
 
         <div
@@ -119,6 +161,18 @@ function ContactPage() {
 /* --- PAGE PRINCIPALE --- */
 export default function Page() {
   const [page, setPage] = useState<"home" | "contact">("home");
+  const [showHeroLogo, setShowHeroLogo] = useState(false);
+
+  useEffect(() => {
+    if (page !== "home") {
+      setShowHeroLogo(false);
+      return;
+    }
+
+    setShowHeroLogo(false);
+    const timer = setTimeout(() => setShowHeroLogo(true), 3000);
+    return () => clearTimeout(timer);
+  }, [page]);
 
   return (
     <div className="min-h-screen bg-[#F2EDE6] text-neutral-900">
@@ -153,7 +207,10 @@ export default function Page() {
             <img
               src="/logo.png"
               alt="Louise"
-              className="h-44 md:h-64 w-auto mix-blend-multiply -translate-y-10"
+              className={[
+                "h-44 md:h-64 w-auto mix-blend-multiply -translate-y-10 transition-opacity duration-1000 ease-out",
+                showHeroLogo ? "opacity-100" : "opacity-0",
+              ].join(" ")}
             />
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-neutral-700/70 pointer-events-none">
               <svg

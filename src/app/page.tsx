@@ -466,29 +466,29 @@ export default function Page() {
       )}
 
       {page === "home" && (
-        <footer className="container mx-auto px-4 md:px-8 mt-36 pb-20 border-top border-neutral-300/70 relative">
-          <div className="flex flex-col items-start gap-2 text-[0.65rem] md:text-xs font-heading-alt uppercase tracking-[0.35em] text-neutral-700">
+        <>
+          <footer className="fixed bottom-6 left-6 text-[0.45rem] md:text-[0.55rem] font-heading-alt uppercase tracking-[0.4em] text-neutral-600 space-y-1">
             <button
-              className="hover:opacity-70 transition-opacity text-left"
+              className="hover:opacity-60 transition-opacity text-left"
               onClick={() => setPage("privacy")}
             >
               Politique de confidentialité
             </button>
             <button
-              className="hover:opacity-70 transition-opacity text-left"
+              className="hover:opacity-60 transition-opacity text-left"
               onClick={() => setPage("legal")}
             >
               Mentions légales
             </button>
-          </div>
-        </footer>
+          </footer>
+          <img
+            src="/OIKOSBRUN.png"
+            alt="Oikos Heritage"
+            className="fixed bottom-6 right-6 h-14 md:h-16 w-auto opacity-80 pointer-events-none mix-blend-multiply"
+            aria-hidden="true"
+          />
+        </>
       )}
-      <img
-        src="/OIKOSBRUN.png"
-        alt="Oikos Heritage"
-        className="fixed bottom-6 right-6 h-14 md:h-16 w-auto opacity-80 pointer-events-none mix-blend-multiply"
-        aria-hidden="true"
-      />
     </div>
   );
 }

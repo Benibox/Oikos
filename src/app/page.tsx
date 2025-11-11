@@ -388,7 +388,7 @@ export default function Page() {
           {/* 3. Philosophie */}
           <section className="container mx-auto px-4 md:px-8 py-32 relative">
             <div className="max-w-4xl mx-auto font-avant-garde text-neutral-800">
-              <h2 className="font-heading text-2xl md:text-3xl font-light tracking-[0.4em] text-neutral-800 mb-10">
+              <h2 className="font-heading text-2xl md:text-3xl font-light tracking-[0.18em] text-neutral-800 mb-10">
                 Philosophie
               </h2>
               <div className="space-y-8">

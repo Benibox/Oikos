@@ -387,19 +387,16 @@ export default function Page() {
 
           {/* 3. Philosophie */}
           <section className="container mx-auto px-4 md:px-8 py-32 relative">
-            <div className="max-w-5xl mx-auto font-avant-garde text-neutral-800">
-              <div className="flex flex-col md:flex-row md:items-center gap-4 mb-12">
-                <h2 className="font-heading text-2xl md:text-3xl text-neutral-800">
-                  Philosophie
-                </h2>
-                <span
-                  className="flex-1 h-[0.5px] bg-neutral-800/30"
-                  aria-hidden="true"
-                />
-              </div>
-              <div className="grid gap-10 md:grid-cols-3 md:gap-12">
+            <div className="max-w-4xl mx-auto font-avant-garde text-neutral-800">
+              <h2 className="font-heading text-2xl md:text-3xl text-neutral-800 mb-10">
+                Philosophie
+              </h2>
+              <div className="space-y-8">
                 {PHILOSOPHY_PARAGRAPHS.map((paragraph) => (
-                  <article key={paragraph} className="leading-relaxed text-base md:text-lg">
+                  <article
+                    key={paragraph}
+                    className="leading-relaxed text-base md:text-xl border-l border-neutral-800/30 pl-6"
+                  >
                     {paragraph}
                   </article>
                 ))}

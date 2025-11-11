@@ -412,7 +412,7 @@ export default function Page() {
 
       {page === "home" && (
         <>
-          <footer className="fixed bottom-6 left-6 text-[0.45rem] md:text-[0.55rem] font-heading-alt uppercase tracking-[0.4em] text-neutral-600 space-y-1">
+          <footer className="fixed bottom-6 left-6 flex flex-col items-start gap-2 text-[0.45rem] md:text-[0.55rem] font-heading-alt uppercase tracking-[0.4em] text-neutral-600">
             <button
               className="hover:opacity-60 transition-opacity text-left"
               onClick={() => setPage("privacy")}

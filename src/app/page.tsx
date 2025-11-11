@@ -11,14 +11,6 @@ const BANDEAU_PRINCIPAL = {
 };
 
 const BANDEAU_KEYWORDS = ["patrimoine", "lieux de vie", "rentabilité"];
-const BANDEAU_KEYWORD_DETAILS: Record<string, string> = {
-  patrimoine:
-    "Nous restaurons chaque lieu en révélant ses traces fondatrices pour que le caractère d’origine dialogue avec une élégance contemporaine.",
-  "lieux de vie":
-    "Nous sculptons des intérieurs apaisants, baignés de lumière et pensés pour devenir des refuges sensibles où l’on se sent immédiatement chez soi.",
-  rentabilité:
-    "Nous investissons de manière responsable en conciliant beauté, durabilité et performance afin que chaque projet demeure un capital vivant.",
-};
 
 const PHILOSOPHY_PARAGRAPHS = [
   "Préserver l’âme. Oikos Heritage est née d’une conviction simple : la modernité ne vaut que lorsqu’elle dialogue avec la mémoire. Chaque projet s’attache à révéler l’histoire intime des lieux.",
@@ -40,7 +32,6 @@ function Bandeau({
   const [visibleKeywords, setVisibleKeywords] = useState<boolean[]>(
     () => BANDEAU_KEYWORDS.map(() => false)
   );
-  const [detailKeyword, setDetailKeyword] = useState<string | null>(null);
 
   useEffect(() => {
     const element = videoRef.current;
@@ -110,15 +101,6 @@ function Bandeau({
     };
   }, []);
 
-  const handleKeywordClick = (motCle: string) => {
-    setDetailKeyword((current) => (current === motCle ? null : motCle));
-  };
-
-  const closeDetail = () => setDetailKeyword(null);
-  const detailText = detailKeyword
-    ? BANDEAU_KEYWORD_DETAILS[detailKeyword] ?? texte
-    : null;
-
   return (
     <div className="relative w-full overflow-hidden bg-neutral-200 min-h-[420px] md:min-h-[520px]">
       {video && (
@@ -140,16 +122,13 @@ function Bandeau({
         <div className="relative w-full min-h-[420px] md:min-h-[520px] px-6 md:px-12 py-10 bg-neutral-900/35 hover:bg-neutral-900/45 transition-colors overflow-hidden flex items-center justify-center">
           <div className="grid w-full grid-cols-3 items-end gap-4 font-heading text-white text-[0.55rem] md:text-xl tracking-[0.4em]">
             {BANDEAU_KEYWORDS.map((motCle, index) => (
-              <button
+              <span
                 key={motCle}
-                type="button"
-                onClick={() => handleKeywordClick(motCle)}
                 className={[
-                  "transition-all duration-[1600ms] ease-out uppercase focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
+                  "transition-all duration-[1600ms] ease-out uppercase pointer-events-none text-white/80",
                   visibleKeywords[index]
                     ? "opacity-100 translate-y-0 scale-100 blur-0"
                     : "opacity-0 translate-y-3 scale-95 blur-sm",
-                  detailKeyword === motCle ? "text-white" : "text-white/80",
                   index === 0
                     ? "justify-self-start text-left"
                     : index === 1
@@ -157,46 +136,12 @@ function Bandeau({
                       : "justify-self-end text-right",
                 ].join(" ")}
                 style={{ transitionDelay: `${index * 80}ms` }}
-                aria-pressed={detailKeyword === motCle}
               >
                 {motCle}
-              </button>
+              </span>
             ))}
           </div>
 
-          {detailKeyword && detailText && (
-            <div
-              className="absolute inset-0 flex items-center justify-center bg-neutral-900/25 backdrop-blur-[2px] px-4 md:px-12"
-              onClick={closeDetail}
-            >
-              <div
-                className="relative max-w-2xl w-full rounded-3xl border border-white/50 bg-white/95 text-neutral-900 px-6 py-8 md:px-10 md:py-12 shadow-2xl"
-                onClick={(event) => event.stopPropagation()}
-              >
-                <button
-                  type="button"
-                  onClick={closeDetail}
-                  className="absolute right-4 top-4 text-neutral-500 hover:text-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-800/40 rounded-full p-1"
-                  aria-label="Fermer"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    className="h-5 w-5"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M6 18 18 6" />
-                  </svg>
-                </button>
-                <p className="font-heading-alt text-xs tracking-[0.4em] uppercase text-neutral-500 mb-4">
-                  {detailKeyword}
-                </p>
-                <p className="leading-relaxed text-base md:text-lg">{detailText}</p>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>

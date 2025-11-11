@@ -59,10 +59,10 @@ function Bandeau({
   }, []);
 
   useEffect(() => {
-    const KEYWORD_BASE_DELAY = 600;
-    const KEYWORD_VISIBLE_DURATION = 1200;
-    const KEYWORD_STAGGER = 1400;
-    const LOOP_PAUSE = 800;
+    const KEYWORD_BASE_DELAY = 1000;
+    const KEYWORD_VISIBLE_DURATION = 2600;
+    const KEYWORD_STAGGER = 2800;
+    const LOOP_PAUSE = 1600;
 
     let timers: ReturnType<typeof setTimeout>[] = [];
     let loop: ReturnType<typeof setInterval> | null = null;
@@ -145,7 +145,7 @@ function Bandeau({
                 type="button"
                 onClick={() => handleKeywordClick(motCle)}
                 className={[
-                  "transition-all duration-700 ease-out uppercase focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
+                  "transition-all duration-[1600ms] ease-out uppercase focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
                   visibleKeywords[index]
                     ? "opacity-100 translate-y-0 scale-100 blur-0"
                     : "opacity-0 translate-y-3 scale-95 blur-sm",
@@ -364,7 +364,7 @@ export default function Page() {
     }
 
     setShowHeroLogo(false);
-    const timer = setTimeout(() => setShowHeroLogo(true), 1200);
+    const timer = setTimeout(() => setShowHeroLogo(true), 400);
     return () => clearTimeout(timer);
   }, [page]);
 
@@ -402,9 +402,10 @@ export default function Page() {
               src="/logo.png"
               alt="Louise"
               className={[
-                "h-44 md:h-64 w-auto mix-blend-multiply -translate-y-10 transition duration-2000 ease-out",
+                "h-44 md:h-64 w-auto mix-blend-multiply -translate-y-10 transition-all ease-[cubic-bezier(0.22,1,0.36,1)]",
                 showHeroLogo ? "opacity-100 scale-100" : "opacity-0 scale-90",
               ].join(" ")}
+              style={{ transitionDuration: "3800ms" }}
             />
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-neutral-700/70 pointer-events-none">
               <svg

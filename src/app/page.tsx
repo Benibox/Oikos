@@ -395,7 +395,7 @@ export default function Page() {
                 {PHILOSOPHY_PARAGRAPHS.map((paragraph) => (
                   <article
                     key={paragraph}
-                    className="leading-relaxed text-base md:text-xl border-l border-neutral-800/30 pl-6"
+                    className="leading-relaxed text-base md:text-xl"
                   >
                     {paragraph}
                   </article>

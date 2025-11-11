@@ -302,7 +302,7 @@ export default function Page() {
   const [page, setPage] = useState<"home" | "contact" | "privacy" | "legal">("home");
   const [showHeroLogo, setShowHeroLogo] = useState(false);
   const HERO_LOGO_DELAY_MS = 3000;
-  const HERO_LOGO_TRANSITION_MS = 4600;
+  const HERO_LOGO_TRANSITION_MS = 3800;
 
   useEffect(() => {
     if (page !== "home") {
@@ -349,14 +349,12 @@ export default function Page() {
               src="/logo.png"
               alt="Louise"
               className={[
-                "h-44 md:h-64 w-auto mix-blend-multiply -translate-y-10",
-                showHeroLogo ? "opacity-100 scale-100" : "opacity-0 scale-105",
+                "h-44 md:h-64 w-auto mix-blend-multiply -translate-y-10 transition-all ease-[cubic-bezier(0.22,1,0.36,1)]",
+                showHeroLogo ? "opacity-100 scale-100" : "opacity-0 scale-90",
               ].join(" ")}
               style={{
-                transition: `opacity ${HERO_LOGO_TRANSITION_MS}ms cubic-bezier(0.22, 1, 0.36, 1), transform ${HERO_LOGO_TRANSITION_MS}ms cubic-bezier(0.22, 1, 0.36, 1), filter ${HERO_LOGO_TRANSITION_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`,
-                filter: showHeroLogo
-                  ? "grayscale(0) brightness(1) saturate(1)"
-                  : "grayscale(1) brightness(1.55) saturate(0.3)",
+                transitionDuration: `${HERO_LOGO_TRANSITION_MS}ms`,
+                transitionProperty: "opacity, transform",
               }}
             />
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-neutral-700/70 pointer-events-none">

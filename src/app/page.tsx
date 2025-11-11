@@ -436,7 +436,7 @@ export default function Page() {
           <img
             src="/OIKOSBRUN.png"
             alt="Oikos Heritage"
-            className="fixed bottom-6 right-6 h-14 md:h-16 w-auto opacity-80 pointer-events-none mix-blend-multiply"
+            className="fixed bottom-6 right-6 h-14 md:h-16 w-auto opacity-80 pointer-events-none mix-blend-multiply z-10"
             aria-hidden="true"
           />
         </>

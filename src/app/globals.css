@@ -39,3 +39,8 @@ body {
   font-family: var(--font-heading);
   letter-spacing: 0.18em;
 }
+
+.font-avant-garde {
+  font-family: "Avant Garde", "ITC Avant Garde Gothic", "Avantgarde",
+    "Century Gothic", "Montserrat", "Helvetica Neue", Arial, sans-serif;
+}

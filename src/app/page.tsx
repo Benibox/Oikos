@@ -20,6 +20,12 @@ const BANDEAU_KEYWORD_DETAILS: Record<string, string> = {
     "Nous investissons de manière responsable en conciliant beauté, durabilité et performance afin que chaque projet demeure un capital vivant.",
 };
 
+const PHILOSOPHY_PARAGRAPHS = [
+  "Préserver l’âme. Oikos Heritage est née d’une conviction simple : la modernité ne vaut que lorsqu’elle dialogue avec la mémoire. Chaque projet s’attache à révéler l’histoire intime des lieux.",
+  "Habiter avec sens. Nous composons des intérieurs apaisants, baignés de lumière, qui honorent la matière. Les maisons deviennent des refuges vivants, pensés pour ceux qui les habitent et les transmettent.",
+  "Investir dans la durée. Ancrée dans les territoires, notre équipe collabore avec des artisans locaux afin de créer une valeur durable. Nous harmonisons beauté, pérennité et rentabilité pour faire du patrimoine un capital vivant.",
+];
+
 /* --- Bandeau sans images, avec accordéon CSS pur --- */
 function Bandeau({
   mot,
@@ -430,42 +436,22 @@ export default function Page() {
 
           {/* 3. Philosophie */}
           <section className="container mx-auto px-4 md:px-8 py-32 relative">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="font-heading text-2xl md:text-3xl mb-12 text-neutral-800">
-                Philosophie
-              </h2>
-              <div className="grid gap-10 md:grid-cols-2 md:gap-16 text-neutral-800">
-                <article className="space-y-4">
-                  <h3 className="font-heading-alt text-sm tracking-[0.4em] uppercase text-neutral-600">
-                    Préserver l’âme
-                  </h3>
-                  <p className="leading-relaxed text-base md:text-lg">
-                    Oikos Heritage est née d’une conviction simple : la modernité
-                    ne vaut que lorsqu’elle dialogue avec la mémoire. Chaque
-                    projet s’attache à révéler l’histoire intime des lieux.
-                  </p>
-                </article>
-                <article className="space-y-4">
-                  <h3 className="font-heading-alt text-sm tracking-[0.4em] uppercase text-neutral-600">
-                    Habiter avec sens
-                  </h3>
-                  <p className="leading-relaxed text-base md:text-lg">
-                    Nous composons des intérieurs apaisants, baignés de lumière,
-                    qui honorent la matière. Les maisons deviennent des refuges
-                    vivants, pensés pour ceux qui les habitent et les transmettent.
-                  </p>
-                </article>
-                <article className="space-y-4 md:col-span-2">
-                  <h3 className="font-heading-alt text-sm tracking-[0.4em] uppercase text-neutral-600">
-                    Investir dans la durée
-                  </h3>
-                  <p className="leading-relaxed text-base md:text-lg">
-                    Ancrée dans les territoires, notre équipe collabore avec des
-                    artisans locaux afin de créer une valeur durable. Nous
-                    harmonisons beauté, pérennité et rentabilité pour faire du
-                    patrimoine un capital vivant.
-                  </p>
-                </article>
+            <div className="max-w-5xl mx-auto font-avant-garde text-neutral-800">
+              <div className="flex flex-col md:flex-row md:items-center gap-4 mb-12">
+                <h2 className="font-heading text-2xl md:text-3xl text-neutral-800">
+                  Philosophie
+                </h2>
+                <span
+                  className="flex-1 h-[0.5px] bg-neutral-800/30"
+                  aria-hidden="true"
+                />
+              </div>
+              <div className="grid gap-10 md:grid-cols-3 md:gap-12">
+                {PHILOSOPHY_PARAGRAPHS.map((paragraph) => (
+                  <article key={paragraph} className="leading-relaxed text-base md:text-lg">
+                    {paragraph}
+                  </article>
+                ))}
               </div>
             </div>
           </section>

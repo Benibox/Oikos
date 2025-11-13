@@ -38,7 +38,7 @@ function Bandeau({
     if (!element) return;
 
     const tryPlay = () => {
-      element.playbackRate = 0.75;
+      element.playbackRate = 0.6;
       element.play().catch(() => {
         /* some browsers still block autoplay even when muted */
       });
@@ -114,12 +114,13 @@ function Bandeau({
             muted
             playsInline
             preload="auto"
+            style={{ filter: "brightness(1.32) contrast(1.08)" }}
           />
           <div className="absolute inset-0 bg-neutral-900/15" aria-hidden="true" />
         </>
       )}
       <div className="relative">
-        <div className="relative w-full min-h-[420px] md:min-h-[520px] px-6 md:px-12 py-10 bg-neutral-900/35 hover:bg-neutral-900/45 transition-colors overflow-hidden flex items-center justify-center">
+        <div className="relative w-full min-h-[420px] md:min-h-[520px] px-6 md:px-12 py-10 bg-neutral-900/35 transition-colors overflow-hidden flex items-center justify-center">
           <div className="grid w-full grid-cols-3 items-end gap-4 font-heading text-white text-[0.55rem] md:text-xl tracking-[0.4em]">
             {BANDEAU_KEYWORDS.map((motCle, index) => (
               <span
@@ -151,24 +152,27 @@ function Bandeau({
 /* --- Pages statiques --- */
 function ContactPage() {
   return (
-    <div className="min-h-screen bg-[#F2EDE6] flex flex-col justify-center items-center text-center relative">
-      <div className="max-w-md text-neutral-900">
-        <p className="font-heading-alt text-xl md:text-2xl mb-2">
-          Louise BERNAZ - Founder
-        </p>
-        <p className="font-heading-alt text-xl md:text-2xl mb-2">
-          lbernaz@oikos-heritage.com
-        </p>
-        <p className="font-heading-alt text-xl md:text-2xl mb-8">
-          +33.06.20.30.06.19
-        </p>
+    <div className="min-h-screen bg-[#F2EDE6] flex flex-col justify-center items-center relative px-6 md:px-16 py-12">
+      <div className="relative w-full max-w-4xl grid grid-cols-1 md:grid-cols-[1.2fr_minmax(220px,_0.9fr)] gap-6 md:gap-10 md:items-start">
+        <div className="relative w-full flex justify-start">
+          <img
+            src="/Arch%20DEF%20OIKOS.png"
+            alt="Oikos architecture"
+            className="w-full h-auto max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl object-contain md:ml-[6.5rem] lg:ml-[8rem]"
+          />
+        </div>
+        <div className="text-neutral-900 font-avant-garde text-left space-y-3 tracking-[0.05em] md:self-start md:justify-self-start md:-translate-y-4 md:-translate-x-[10.5rem]">
+          <p className="text-lg md:text-xl">
+            <span className="font-semibold">Louise Bernaz</span>
+            <span className="font-normal"> – founder</span>
+          </p>
+          <p className="text-lg md:text-xl font-normal">+33 6 20 30 06 19</p>
+          <p className="text-lg md:text-xl font-normal lowercase">
+            lbernaz@oikos-heritage.com
+          </p>
+        </div>
       </div>
 
-      <img
-        src="/Arch%20DEF%20OIKOS.png"
-        alt="Oikos architecture"
-        className="absolute bottom-8 left-8 w-44 h-32 object-contain"
-      />
       <img
         src="/logo.png"
         alt="Louise"
@@ -301,8 +305,9 @@ function LegalPage() {
 export default function Page() {
   const [page, setPage] = useState<"home" | "contact" | "privacy" | "legal">("home");
   const [showHeroLogo, setShowHeroLogo] = useState(false);
-  const HERO_LOGO_DELAY_MS = 3000;
-  const HERO_LOGO_TRANSITION_MS = 3800;
+  const [showFooterMeta, setShowFooterMeta] = useState(false);
+  const HERO_LOGO_DELAY_MS = 1800;
+  const HERO_LOGO_TRANSITION_MS = 9000;
 
   useEffect(() => {
     if (page !== "home") {
@@ -315,6 +320,24 @@ export default function Page() {
     return () => clearTimeout(timer);
   }, [page]);
 
+  useEffect(() => {
+    if (page !== "home") {
+      setShowFooterMeta(true);
+      return;
+    }
+
+    setShowFooterMeta(false);
+    const handleScroll = () => {
+      if (window.scrollY > 30) {
+        setShowFooterMeta(true);
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [page]);
+
   return (
     <div className="min-h-screen bg-[#F2EDE6] text-neutral-900">
       {/* Header */}
@@ -325,16 +348,22 @@ export default function Page() {
             onClick={() =>
               setPage((curr) => (curr === "home" ? "contact" : "home"))
             }
-            className="underline underline-offset-4 hover:opacity-70"
+            className="underline underline-offset-4 transition-colors duration-200 hover:text-neutral-400"
           >
             {page === "home" ? "Contact" : "Accueil"}
           </button>
           <div className="flex items-center gap-3">
-            <button className="hover:opacity-70" aria-label="FR">
+            <button
+              className="transition-colors duration-200 hover:text-neutral-400"
+              aria-label="FR"
+            >
               FR
             </button>
             <span className="opacity-30">/</span>
-            <button className="hover:opacity-70" aria-label="EN">
+            <button
+              className="transition-colors duration-200 hover:text-neutral-400"
+              aria-label="EN"
+            >
               EN
             </button>
           </div>
@@ -349,12 +378,13 @@ export default function Page() {
               src="/logo.png"
               alt="Louise"
               className={[
-                "h-44 md:h-64 w-auto mix-blend-multiply -translate-y-10 transition-all ease-[cubic-bezier(0.22,1,0.36,1)]",
-                showHeroLogo ? "opacity-100 scale-100" : "opacity-0 scale-90",
+                "h-44 md:h-64 w-auto mix-blend-multiply -translate-y-10 transition-opacity ease-[cubic-bezier(0.22,1,0.36,1)]",
+                showHeroLogo ? "opacity-100" : "opacity-0",
               ].join(" ")}
               style={{
                 transitionDuration: `${HERO_LOGO_TRANSITION_MS}ms`,
-                transitionProperty: "opacity, transform",
+                transitionProperty: "opacity",
+                transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
               }}
             />
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-neutral-700/70 pointer-events-none">
@@ -414,15 +444,22 @@ export default function Page() {
 
       {page === "home" && (
         <>
-          <footer className="fixed bottom-6 left-6 flex flex-col items-start gap-2 text-[0.45rem] md:text-[0.55rem] font-heading-alt uppercase tracking-[0.4em] text-neutral-600">
+          <footer
+            className={[
+              "fixed bottom-6 left-6 flex flex-col items-start gap-2 text-[0.45rem] md:text-[0.55rem] font-heading-alt uppercase tracking-[0.4em] text-neutral-600 transition-all duration-700 ease-out",
+              showFooterMeta
+                ? "opacity-100 translate-y-0 pointer-events-auto"
+                : "opacity-0 translate-y-3 pointer-events-none",
+            ].join(" ")}
+          >
             <button
-              className="hover:opacity-60 transition-opacity text-left"
+              className="transition-colors duration-200 hover:text-neutral-400 text-left"
               onClick={() => setPage("privacy")}
             >
               Politique de confidentialité
             </button>
             <button
-              className="hover:opacity-60 transition-opacity text-left"
+              className="transition-colors duration-200 hover:text-neutral-400 text-left"
               onClick={() => setPage("legal")}
             >
               Mentions légales
@@ -431,7 +468,10 @@ export default function Page() {
           <img
             src="/OIKOSBRUN.png"
             alt="Oikos Heritage"
-            className="fixed bottom-6 right-6 h-14 md:h-16 w-auto opacity-80 pointer-events-none mix-blend-multiply z-10"
+            className={[
+              "fixed bottom-6 right-6 h-14 md:h-16 w-auto pointer-events-none mix-blend-multiply z-10 transition-all duration-700 ease-out",
+              showFooterMeta ? "opacity-80 translate-y-0" : "opacity-0 translate-y-3",
+            ].join(" ")}
             aria-hidden="true"
           />
         </>

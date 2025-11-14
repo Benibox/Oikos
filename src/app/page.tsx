@@ -114,9 +114,9 @@ function Bandeau({
             muted
             playsInline
             preload="auto"
-            style={{ filter: "brightness(2.1) contrast(1.22)" }}
+            style={{ filter: "brightness(1.7) contrast(1.16)" }}
           />
-          <div className="absolute inset-0 bg-neutral-900/3" aria-hidden="true" />
+          <div className="absolute inset-0 bg-neutral-900/6" aria-hidden="true" />
         </>
       )}
       <div className="relative">

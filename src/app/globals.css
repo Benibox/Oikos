@@ -5,6 +5,8 @@
   --foreground: #171717;
   --font-heading: "ITC Avant Garde Gothic", "Avant Garde", "Avantgarde",
     "Century Gothic", "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  --font-geist-sans: "Helvetica Neue", "Montserrat", Arial, sans-serif;
+  --font-geist-mono: "SFMono-Regular", "Roboto Mono", Menlo, monospace;
 }
 
 @theme inline {

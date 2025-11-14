@@ -329,7 +329,7 @@ export default function Page() {
       return;
     }
 
-    let frame = requestAnimationFrame(() => setShowHeroLogo(true));
+    const frame = requestAnimationFrame(() => setShowHeroLogo(true));
     return () => {
       cancelAnimationFrame(frame);
       setShowHeroLogo(false);

@@ -156,7 +156,7 @@ function ContactPage() {
       <div className="relative w-full max-w-4xl grid grid-cols-1 md:grid-cols-[1.2fr_minmax(220px,_0.9fr)] gap-6 md:gap-10 md:items-start">
         <div className="relative w-full flex justify-start">
           <img
-            src="/Arch%20DEF%20OIKOS.png"
+            src="/contact-illustration.png"
             alt="Oikos architecture"
             className="w-full h-auto max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl object-contain md:ml-[6.5rem] lg:ml-[8rem]"
           />

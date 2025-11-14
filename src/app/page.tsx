@@ -152,16 +152,16 @@ function Bandeau({
 /* --- Pages statiques --- */
 function ContactPage() {
   return (
-    <div className="min-h-screen bg-[#F2EDE6] flex flex-col justify-center items-center relative px-6 md:px-16 py-12">
-      <div className="relative w-full max-w-4xl grid grid-cols-1 md:grid-cols-[1.2fr_minmax(220px,_0.9fr)] gap-6 md:gap-10 md:items-start">
+    <div className="min-h-screen bg-[#F2EDE6] flex flex-col justify-center items-center relative px-6 md:px-16 py-6 md:py-10">
+      <div className="relative w-full max-w-4xl grid grid-cols-1 md:grid-cols-[1.2fr_minmax(220px,_0.9fr)] gap-6 md:gap-10 md:items-start md:pl-10 lg:pl-20 md:-translate-y-4">
         <div className="relative w-full flex justify-start">
           <img
             src="/contact-illustration.png"
             alt="Oikos architecture"
-            className="w-full h-auto max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl object-contain md:ml-[6.5rem] lg:ml-[8rem]"
+            className="w-full h-auto max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl object-contain md:ml-[7rem] lg:ml-[9rem]"
           />
         </div>
-        <div className="text-neutral-900 font-avant-garde text-left space-y-3 tracking-[0.05em] md:self-start md:justify-self-start md:-translate-y-4 md:-translate-x-[10.5rem]">
+        <div className="font-avant-garde text-[#3b1f1a] text-left space-y-3 tracking-[0.05em] md:self-start md:justify-self-start md:-translate-y-4 md:-translate-x-[7.5rem]">
           <p className="text-lg md:text-xl">
             <span className="font-semibold">Louise Bernaz</span>
             <span className="font-normal"> – founder</span>
@@ -434,7 +434,7 @@ export default function Page() {
                 {PHILOSOPHY_PARAGRAPHS.map((paragraph) => (
                   <article
                     key={paragraph}
-                    className="leading-relaxed text-base md:text-xl font-light text-[#3b1f1a] tracking-[0.08em]"
+                    className="font-avant-garde leading-relaxed text-base md:text-xl font-light text-[#3b1f1a] tracking-[0.08em]"
                     style={{ textAlign: "justify", textJustify: "inter-word" }}
                   >
                     {paragraph}

@@ -114,9 +114,9 @@ function Bandeau({
             muted
             playsInline
             preload="auto"
-            style={{ filter: "brightness(1.32) contrast(1.08)" }}
+            style={{ filter: "brightness(2.1) contrast(1.22)" }}
           />
-          <div className="absolute inset-0 bg-neutral-900/15" aria-hidden="true" />
+          <div className="absolute inset-0 bg-neutral-900/3" aria-hidden="true" />
         </>
       )}
       <div className="relative">
@@ -304,21 +304,37 @@ function LegalPage() {
 /* --- PAGE PRINCIPALE --- */
 export default function Page() {
   const [page, setPage] = useState<"home" | "contact" | "privacy" | "legal">("home");
+  const [shouldRenderHeroLogo, setShouldRenderHeroLogo] = useState(false);
   const [showHeroLogo, setShowHeroLogo] = useState(false);
   const [showFooterMeta, setShowFooterMeta] = useState(false);
-  const HERO_LOGO_DELAY_MS = 1800;
-  const HERO_LOGO_TRANSITION_MS = 9000;
+  const HERO_LOGO_DELAY_MS = 500;
+  const HERO_LOGO_TRANSITION_MS = 4200;
 
   useEffect(() => {
     if (page !== "home") {
+      setShouldRenderHeroLogo(false);
       setShowHeroLogo(false);
       return;
     }
 
+    setShouldRenderHeroLogo(false);
     setShowHeroLogo(false);
-    const timer = setTimeout(() => setShowHeroLogo(true), HERO_LOGO_DELAY_MS);
+    const timer = setTimeout(() => setShouldRenderHeroLogo(true), HERO_LOGO_DELAY_MS);
     return () => clearTimeout(timer);
   }, [page]);
+
+  useEffect(() => {
+    if (!shouldRenderHeroLogo) {
+      setShowHeroLogo(false);
+      return;
+    }
+
+    let frame = requestAnimationFrame(() => setShowHeroLogo(true));
+    return () => {
+      cancelAnimationFrame(frame);
+      setShowHeroLogo(false);
+    };
+  }, [shouldRenderHeroLogo]);
 
   useEffect(() => {
     if (page !== "home") {
@@ -348,7 +364,7 @@ export default function Page() {
             onClick={() =>
               setPage((curr) => (curr === "home" ? "contact" : "home"))
             }
-            className="underline underline-offset-4 transition-colors duration-200 hover:text-neutral-400"
+            className="transition-colors duration-200 hover:text-neutral-400"
           >
             {page === "home" ? "Contact" : "Accueil"}
           </button>
@@ -374,36 +390,22 @@ export default function Page() {
         <>
           {/* 1. Logo plein écran */}
           <section className="container mx-auto px-4 md:px-8 h-screen grid place-items-center relative">
-            <img
-              src="/logo.png"
-              alt="Louise"
-              className={[
-                "h-44 md:h-64 w-auto mix-blend-multiply -translate-y-10 transition-opacity ease-[cubic-bezier(0.22,1,0.36,1)]",
-                showHeroLogo ? "opacity-100" : "opacity-0",
-              ].join(" ")}
-              style={{
-                transitionDuration: `${HERO_LOGO_TRANSITION_MS}ms`,
-                transitionProperty: "opacity",
-                transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
-              }}
-            />
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-neutral-700/70 pointer-events-none">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                className="h-6 w-6 animate-bounce"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 5v14m0 0-5-5m5 5 5-5"
-                />
-              </svg>
-            </div>
+            {shouldRenderHeroLogo && (
+              <img
+                src="/logo.png"
+                alt="Louise"
+                className="h-44 md:h-64 w-auto mix-blend-multiply ease-[cubic-bezier(0.22,1,0.36,1)]"
+                style={{
+                  transitionDuration: `${HERO_LOGO_TRANSITION_MS}ms`,
+                  transitionProperty: "opacity, transform",
+                  transitionTimingFunction: "cubic-bezier(0.2, 0.8, 0.2, 1)",
+                  opacity: showHeroLogo ? 1 : 0,
+                  transform: showHeroLogo
+                    ? "scale(1) translateY(-10px)"
+                    : "scale(0.96) translateY(12px)",
+                }}
+              />
+            )}
           </section>
 
           {/* 2. Bandeau plein écran */}
@@ -425,7 +427,8 @@ export default function Page() {
                 {PHILOSOPHY_PARAGRAPHS.map((paragraph) => (
                   <article
                     key={paragraph}
-                    className="leading-relaxed text-base md:text-xl font-light text-neutral-700 tracking-[0.08em]"
+                    className="leading-relaxed text-base md:text-xl font-light text-[#3b1f1a] tracking-[0.08em]"
+                    style={{ textAlign: "justify", textJustify: "inter-word" }}
                   >
                     {paragraph}
                   </article>

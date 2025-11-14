@@ -304,37 +304,44 @@ function LegalPage() {
 /* --- PAGE PRINCIPALE --- */
 export default function Page() {
   const [page, setPage] = useState<"home" | "contact" | "privacy" | "legal">("home");
-  const [shouldRenderHeroLogo, setShouldRenderHeroLogo] = useState(false);
   const [showHeroLogo, setShowHeroLogo] = useState(false);
   const [showFooterMeta, setShowFooterMeta] = useState(false);
+  const heroRevealTimeoutRef = useRef<number | null>(null);
+  const heroRevealFrameRef = useRef<number | null>(null);
   const HERO_LOGO_DELAY_MS = 500;
   const HERO_LOGO_TRANSITION_MS = 4200;
 
   useEffect(() => {
+    if (heroRevealTimeoutRef.current) {
+      clearTimeout(heroRevealTimeoutRef.current);
+      heroRevealTimeoutRef.current = null;
+    }
+    if (heroRevealFrameRef.current) {
+      cancelAnimationFrame(heroRevealFrameRef.current);
+      heroRevealFrameRef.current = null;
+    }
+
     if (page !== "home") {
-      setShouldRenderHeroLogo(false);
       setShowHeroLogo(false);
       return;
     }
 
-    setShouldRenderHeroLogo(false);
     setShowHeroLogo(false);
-    const timer = setTimeout(() => setShouldRenderHeroLogo(true), HERO_LOGO_DELAY_MS);
-    return () => clearTimeout(timer);
-  }, [page]);
+    heroRevealTimeoutRef.current = window.setTimeout(() => {
+      heroRevealFrameRef.current = requestAnimationFrame(() => setShowHeroLogo(true));
+    }, HERO_LOGO_DELAY_MS);
 
-  useEffect(() => {
-    if (!shouldRenderHeroLogo) {
-      setShowHeroLogo(false);
-      return;
-    }
-
-    const frame = requestAnimationFrame(() => setShowHeroLogo(true));
     return () => {
-      cancelAnimationFrame(frame);
-      setShowHeroLogo(false);
+      if (heroRevealTimeoutRef.current) {
+        clearTimeout(heroRevealTimeoutRef.current);
+        heroRevealTimeoutRef.current = null;
+      }
+      if (heroRevealFrameRef.current) {
+        cancelAnimationFrame(heroRevealFrameRef.current);
+        heroRevealFrameRef.current = null;
+      }
     };
-  }, [shouldRenderHeroLogo]);
+  }, [page]);
 
   useEffect(() => {
     if (page !== "home") {
@@ -390,22 +397,22 @@ export default function Page() {
         <>
           {/* 1. Logo plein écran */}
           <section className="container mx-auto px-4 md:px-8 h-screen grid place-items-center relative">
-            {shouldRenderHeroLogo && (
-              <img
-                src="/logo.png"
-                alt="Louise"
-                className="h-44 md:h-64 w-auto mix-blend-multiply ease-[cubic-bezier(0.22,1,0.36,1)]"
-                style={{
-                  transitionDuration: `${HERO_LOGO_TRANSITION_MS}ms`,
-                  transitionProperty: "opacity, transform",
-                  transitionTimingFunction: "cubic-bezier(0.2, 0.8, 0.2, 1)",
-                  opacity: showHeroLogo ? 1 : 0,
-                  transform: showHeroLogo
-                    ? "scale(1) translateY(-10px)"
-                    : "scale(0.96) translateY(12px)",
-                }}
-              />
-            )}
+            <img
+              src="/logo.png"
+              alt="Louise"
+              loading="eager"
+              decoding="sync"
+              className="h-44 md:h-64 w-auto mix-blend-multiply ease-[cubic-bezier(0.22,1,0.36,1)]"
+              style={{
+                transitionDuration: `${HERO_LOGO_TRANSITION_MS}ms`,
+                transitionProperty: "opacity, transform",
+                transitionTimingFunction: "cubic-bezier(0.2, 0.8, 0.2, 1)",
+                opacity: showHeroLogo ? 1 : 0,
+                transform: showHeroLogo
+                  ? "scale(1) translateY(-10px)"
+                  : "scale(0.96) translateY(12px)",
+              }}
+            />
           </section>
 
           {/* 2. Bandeau plein écran */}

@@ -96,25 +96,13 @@ body {
   overflow: hidden;
 }
 
-.hero-arc {
-  position: absolute;
-  bottom: -40vh;
-  left: -60vh;
-  width: 140vh;
-  height: 140vh;
-  border-radius: 50%;
-  border: 6px solid #ffffff;
-  opacity: 0.85;
-  pointer-events: none;
-}
-
 .hero-content {
   position: relative;
   z-index: 1;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .lang-button {

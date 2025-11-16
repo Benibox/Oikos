@@ -366,12 +366,10 @@ function ContactPage({ copy }: { copy: ContactCopy }) {
 }
 
 function TextContentPage({
-  eyebrow,
   title,
   intro,
   sections,
 }: {
-  eyebrow: string;
   title: string;
   intro: string;
   sections: ReadonlyArray<TextSection>;
@@ -379,16 +377,13 @@ function TextContentPage({
   return (
     <div className="min-h-screen bg-[#EEE5D8] flex flex-col justify-center px-6 md:px-12 py-16 text-neutral-900">
       <div className="max-w-4xl mx-auto space-y-12">
-        <div className="space-y-3 text-center">
-          <p className="font-heading-alt text-xs md:text-sm tracking-[0.4em] uppercase text-neutral-500">
-            {eyebrow}
-          </p>
+        <div className="space-y-3 text-left">
           <h1 className="font-heading text-2xl md:text-4xl">{title}</h1>
           <p className="text-base md:text-lg leading-relaxed text-neutral-700">{intro}</p>
         </div>
         <div className="space-y-10">
           {sections.map((section) => (
-            <section key={section.title} className="space-y-3 bg-white/70 rounded-2xl p-6 md:p-8 shadow-sm">
+            <section key={section.title} className="space-y-3">
               <h2 className="font-heading text-lg md:text-xl text-neutral-800">{section.title}</h2>
               {section.content.map((paragraph, idx) => (
                 <p key={idx} className="leading-relaxed text-sm md:text-base text-neutral-700">
@@ -406,7 +401,6 @@ function TextContentPage({
 function PrivacyPage({ copy }: { copy: TextContentCopy }) {
   return (
     <TextContentPage
-      eyebrow={copy.eyebrow}
       title={copy.title}
       intro={copy.intro}
       sections={copy.sections}
@@ -417,7 +411,6 @@ function PrivacyPage({ copy }: { copy: TextContentCopy }) {
 function LegalPage({ copy }: { copy: LegalCopy }) {
   return (
     <TextContentPage
-      eyebrow={copy.eyebrow}
       title={copy.title}
       intro={copy.intro}
       sections={copy.sections}
@@ -535,7 +528,6 @@ export default function Page() {
         <>
           {/* 1. Logo plein écran */}
           <section className="hero">
-            <div className="hero-arc" aria-hidden="true" />
             <div className="hero-content">
               <div className="container mx-auto px-4 md:px-8 h-full grid place-items-center">
                 <div

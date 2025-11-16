@@ -192,7 +192,7 @@ const TEXTS = {
 } as const;
 
 type LanguageKey = keyof typeof TEXTS;
-type TextSection = { title: string; content: string[] };
+type TextSection = { title: string; content: readonly string[] };
 type TextContentCopy = typeof TEXTS["fr"]["privacy"];
 type ContactCopy = typeof TEXTS["fr"]["contact"];
 

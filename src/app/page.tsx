@@ -2,36 +2,218 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/* --- Données du bandeau principal --- */
-const BANDEAU_PRINCIPAL = {
-  mot: "patrimoine",
-  texte:
-    "Nous restaurons chaque lieu avec respect pour ses traces d’origine, afin de préserver l’âme des bâtisses et révéler un héritage contemporain.",
-  video: "/videos/videobien.mp4",
-};
+const TEXTS = {
+  fr: {
+    bandeau: {
+      mot: "patrimoine",
+      texte:
+        "Nous restaurons chaque lieu avec respect pour ses traces d’origine, afin de préserver l’âme des bâtisses et révéler un héritage contemporain.",
+      video: "/videos/videobien.mp4",
+    },
+    keywords: ["patrimoine", "lieux de vie", "rentabilité"],
+    philosophyTitle: "Philosophie",
+    philosophyParagraphs: [
+      "Préserver l’âme. Oikos Heritage est née d’une conviction simple : la modernité ne vaut que lorsqu’elle dialogue avec la mémoire. Chaque projet s’attache à révéler l’histoire intime des lieux.",
+      "Habiter avec sens. Nous composons des intérieurs apaisants, baignés de lumière, qui honorent la matière. Les maisons deviennent des refuges vivants, pensés pour ceux qui les habitent et les transmettent.",
+      "Investir dans la durée. Ancrée dans les territoires, notre équipe collabore avec des artisans locaux afin de créer une valeur durable. Nous harmonisons beauté, pérennité et rentabilité pour faire du patrimoine un capital vivant.",
+    ],
+    nav: {
+      toContact: "Contact",
+      toHome: "Accueil",
+    },
+    contact: {
+      roleLabel: " – fondatrice",
+    },
+    privacy: {
+      eyebrow: "Confidentialité",
+      title: "Politique de confidentialité",
+      intro:
+        "Nous protégeons les informations confiées par nos clients et partenaires avec une attention particulière. Voici comment nous traitons et sécurisons les données personnelles.",
+      sections: [
+        {
+          title: "Données collectées",
+          content: [
+            "Nous ne collectons que les informations strictement nécessaires à la prise de contact (nom, adresse e-mail, numéro de téléphone, contenu du message). Aucun suivi publicitaire ni profilage automatisé n’est mis en place.",
+          ],
+        },
+        {
+          title: "Utilisation et conservation",
+          content: [
+            "Les données partagées servent uniquement à répondre aux sollicitations et à assurer le suivi des dossiers en cours. Elles sont conservées pour la durée strictement nécessaire aux échanges commerciaux, puis archivées de manière sécurisée.",
+          ],
+        },
+        {
+          title: "Vos droits",
+          content: [
+            "Vous pouvez à tout moment demander l’accès, la rectification ou la suppression de vos informations personnelles, ainsi que limiter leur traitement. Pour exercer ces droits, écrivez-nous à l’adresse : lbernaz@oikos-heritage.com.",
+          ],
+        },
+        {
+          title: "Sécurité",
+          content: [
+            "Nous mettons en place des mesures organisationnelles et techniques proportionnées pour préserver la confidentialité et l’intégrité des données (accès restreint, stockage protégé, revue régulière des accès).",
+          ],
+        },
+      ],
+    },
+    legal: {
+      eyebrow: "Légal",
+      title: "Mentions légales",
+      intro:
+        "Ces informations présentent les coordonnées de l’éditeur, de l’hébergeur ainsi que le cadre juridique applicable au site Oikos Heritage.",
+      sections: [
+        {
+          title: "Éditeur du site",
+          content: [
+            "Oikos Heritage – Louise Bernaz",
+            "Siège social : 12 rue fictive, 75000 Paris, France",
+            "Contact : lbernaz@oikos-heritage.com | +33 (0)6 20 30 06 19",
+          ],
+        },
+        {
+          title: "Responsabilité éditoriale",
+          content: [
+            "La directrice de la publication est Louise Bernaz, en sa qualité de fondatrice. Les contenus visuels et textuels sont la propriété exclusive d’Oikos Heritage, toute reproduction est soumise à autorisation préalable.",
+          ],
+        },
+        {
+          title: "Hébergement",
+          content: [
+            "Le site est hébergé par Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.",
+            "Contact : support@vercel.com",
+          ],
+        },
+        {
+          title: "Propriété intellectuelle",
+          content: [
+            "Les logos, typographies, photographies et contenus sont protégés par le droit d’auteur. Toute utilisation non autorisée pourra faire l’objet de poursuites conformément aux articles L.335-2 et suivants du Code de la propriété intellectuelle.",
+          ],
+        },
+      ],
+    },
+    footer: {
+      privacy: "Politique de confidentialité",
+      legal: "Mentions légales",
+    },
+  },
+  en: {
+    bandeau: {
+      mot: "heritage",
+      texte:
+        "We restore every place with respect for its original traces, safeguarding each building’s spirit while revealing a contemporary legacy.",
+      video: "/videos/videobien.mp4",
+    },
+    keywords: ["heritage", "living spaces", "long-term value"],
+    philosophyTitle: "Philosophy",
+    philosophyParagraphs: [
+      "Preserving the soul. Oikos Heritage was born from one conviction: modernity only makes sense when it converses with memory. Each project carefully reveals the intimate story of the place.",
+      "Living with meaning. We craft calm, light-filled interiors that honor materials. Homes become living refuges, imagined for those who inhabit and pass them on.",
+      "Investing for the long run. Rooted in local regions, our team collaborates with artisans to build lasting value. We balance beauty, durability, and profitability so heritage remains a living asset.",
+    ],
+    nav: {
+      toContact: "Contact",
+      toHome: "Home",
+    },
+    contact: {
+      roleLabel: " – founder",
+    },
+    privacy: {
+      eyebrow: "Privacy",
+      title: "Privacy policy",
+      intro:
+        "We protect all information entrusted to us with utmost care. Here is how we handle and secure personal data.",
+      sections: [
+        {
+          title: "Data collected",
+          content: [
+            "We only gather the information strictly needed to respond (name, email, phone number, and message content). No advertising tracking or automated profiling is implemented.",
+          ],
+        },
+        {
+          title: "Use and retention",
+          content: [
+            "Shared data is used solely to answer inquiries and follow up on ongoing projects. It is stored for the time strictly necessary to manage exchanges, then archived securely.",
+          ],
+        },
+        {
+          title: "Your rights",
+          content: [
+            "You may request access, rectification, or deletion of your personal information at any time, as well as restrict its processing. To exercise these rights, write to us at lbernaz@oikos-heritage.com.",
+          ],
+        },
+        {
+          title: "Security",
+          content: [
+            "We implement appropriate organizational and technical measures to preserve confidentiality and data integrity (restricted access, protected storage, periodic access reviews).",
+          ],
+        },
+      ],
+    },
+    legal: {
+      eyebrow: "Legal",
+      title: "Legal notice",
+      intro:
+        "These details specify the publisher’s contact information, hosting provider, and regulatory framework for the Oikos Heritage website.",
+      sections: [
+        {
+          title: "Site publisher",
+          content: [
+            "Oikos Heritage – Louise Bernaz",
+            "Head office: 12 rue fictive, 75000 Paris, France",
+            "Contact: lbernaz@oikos-heritage.com | +33 (0)6 20 30 06 19",
+          ],
+        },
+        {
+          title: "Editorial responsibility",
+          content: [
+            "The publication director is Louise Bernaz, founder. Visual and textual content is the exclusive property of Oikos Heritage; any reproduction requires prior authorization.",
+          ],
+        },
+        {
+          title: "Hosting",
+          content: [
+            "The site is hosted by Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, United States.",
+            "Contact: support@vercel.com",
+          ],
+        },
+        {
+          title: "Intellectual property",
+          content: [
+            "Logos, typefaces, photographs, and copy are protected by copyright. Unauthorized use may result in legal action in accordance with French IP law.",
+          ],
+        },
+      ],
+    },
+    footer: {
+      privacy: "Privacy policy",
+      legal: "Legal notice",
+    },
+  },
+} as const;
 
-const BANDEAU_KEYWORDS = ["patrimoine", "lieux de vie", "rentabilité"];
-
-const PHILOSOPHY_PARAGRAPHS = [
-  "Préserver l’âme. Oikos Heritage est née d’une conviction simple : la modernité ne vaut que lorsqu’elle dialogue avec la mémoire. Chaque projet s’attache à révéler l’histoire intime des lieux.",
-  "Habiter avec sens. Nous composons des intérieurs apaisants, baignés de lumière, qui honorent la matière. Les maisons deviennent des refuges vivants, pensés pour ceux qui les habitent et les transmettent.",
-  "Investir dans la durée. Ancrée dans les territoires, notre équipe collabore avec des artisans locaux afin de créer une valeur durable. Nous harmonisons beauté, pérennité et rentabilité pour faire du patrimoine un capital vivant.",
-];
+type LanguageKey = keyof typeof TEXTS;
+type TextSection = { title: string; content: string[] };
+type TextContentCopy = typeof TEXTS["fr"]["privacy"];
+type ContactCopy = typeof TEXTS["fr"]["contact"];
 
 /* --- Bandeau sans images, avec accordéon CSS pur --- */
 function Bandeau({
   mot,
   texte,
   video,
+  keywords,
 }: {
   mot: string;
   texte: string;
   video?: string;
+  keywords: string[];
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [visibleKeywords, setVisibleKeywords] = useState<boolean[]>(
-    () => BANDEAU_KEYWORDS.map(() => false)
-  );
+  const [visibleKeywords, setVisibleKeywords] = useState<boolean[]>([]);
+
+  useEffect(() => {
+    setVisibleKeywords(keywords.map(() => false));
+  }, [keywords]);
 
   useEffect(() => {
     const element = videoRef.current;
@@ -47,7 +229,7 @@ function Bandeau({
     tryPlay();
     element.addEventListener("loadeddata", tryPlay);
     return () => element.removeEventListener("loadeddata", tryPlay);
-  }, []);
+  }, [keywords]);
 
   useEffect(() => {
     const KEYWORD_BASE_DELAY = 1000;
@@ -70,9 +252,9 @@ function Bandeau({
     const startSequence = () => {
       timers.forEach((timer) => clearTimeout(timer));
       timers = [];
-      setVisibleKeywords(BANDEAU_KEYWORDS.map(() => false));
+      setVisibleKeywords(keywords.map(() => false));
 
-      BANDEAU_KEYWORDS.forEach((_, index) => {
+      keywords.forEach((_, index) => {
         const appearAt = KEYWORD_BASE_DELAY + index * KEYWORD_STAGGER;
         const disappearAt = appearAt + KEYWORD_VISIBLE_DURATION;
 
@@ -89,7 +271,7 @@ function Bandeau({
 
     const totalDuration =
       KEYWORD_BASE_DELAY +
-      (BANDEAU_KEYWORDS.length - 1) * KEYWORD_STAGGER +
+      (keywords.length - 1) * KEYWORD_STAGGER +
       KEYWORD_VISIBLE_DURATION +
       LOOP_PAUSE;
 
@@ -122,7 +304,7 @@ function Bandeau({
       <div className="relative">
         <div className="relative w-full min-h-[420px] md:min-h-[520px] px-6 md:px-12 py-10 bg-neutral-900/35 transition-colors overflow-hidden flex items-center justify-center">
           <div className="grid w-full grid-cols-3 items-end gap-4 font-heading text-white text-[0.55rem] md:text-xl tracking-[0.4em]">
-            {BANDEAU_KEYWORDS.map((motCle, index) => (
+            {keywords.map((motCle, index) => (
               <span
                 key={motCle}
                 className={[
@@ -131,10 +313,10 @@ function Bandeau({
                     ? "opacity-100 translate-y-0 scale-100 blur-0"
                     : "opacity-0 translate-y-3 scale-95 blur-sm",
                   index === 0
-                    ? "justify-self-start text-left"
+                    ? "justify-self-start text-left translate-x-2 md:translate-x-10"
                     : index === 1
                       ? "justify-self-center text-center"
-                      : "justify-self-end text-right",
+                      : "justify-self-end text-right -translate-x-2 md:-translate-x-10",
                 ].join(" ")}
                 style={{ transitionDelay: `${index * 80}ms` }}
               >
@@ -150,9 +332,9 @@ function Bandeau({
 }
 
 /* --- Pages statiques --- */
-function ContactPage() {
+function ContactPage({ copy }: { copy: ContactCopy }) {
   return (
-    <div className="min-h-screen bg-[#F2EDE6] flex flex-col justify-center items-center relative px-6 md:px-16 py-6 md:py-10">
+    <div className="min-h-screen bg-[#EEE5D8] flex flex-col justify-center items-center relative px-6 md:px-16 py-6 md:py-10">
       <div className="relative w-full max-w-4xl grid grid-cols-1 md:grid-cols-[1.2fr_minmax(220px,_0.9fr)] gap-6 md:gap-10 md:items-start md:pl-10 lg:pl-20 md:-translate-y-4">
         <div className="relative w-full flex justify-start">
           <img
@@ -164,7 +346,7 @@ function ContactPage() {
         <div className="font-avant-garde text-[#3b1f1a] text-left space-y-3 tracking-[0.05em] md:self-start md:justify-self-start md:-translate-y-4 md:-translate-x-[7.5rem]">
           <p className="text-lg md:text-xl">
             <span className="font-semibold">Louise Bernaz</span>
-            <span className="font-normal"> – founder</span>
+            <span className="font-normal">{copy.roleLabel}</span>
           </p>
           <p className="text-lg md:text-xl font-normal">+33 6 20 30 06 19</p>
           <p className="text-lg md:text-xl font-normal lowercase">
@@ -182,8 +364,6 @@ function ContactPage() {
   );
 }
 
-type TextSection = { title: string; content: string[] };
-
 function TextContentPage({
   eyebrow,
   title,
@@ -193,10 +373,10 @@ function TextContentPage({
   eyebrow: string;
   title: string;
   intro: string;
-  sections: TextSection[];
+  sections: ReadonlyArray<TextSection>;
 }) {
   return (
-    <div className="min-h-screen bg-[#F2EDE6] flex flex-col justify-center px-6 md:px-12 py-16 text-neutral-900">
+    <div className="min-h-screen bg-[#EEE5D8] flex flex-col justify-center px-6 md:px-12 py-16 text-neutral-900">
       <div className="max-w-4xl mx-auto space-y-12">
         <div className="space-y-3 text-center">
           <p className="font-heading-alt text-xs md:text-sm tracking-[0.4em] uppercase text-neutral-500">
@@ -222,81 +402,24 @@ function TextContentPage({
   );
 }
 
-function PrivacyPage() {
-  const sections: TextSection[] = [
-    {
-      title: "Données collectées",
-      content: [
-        "Nous ne collectons que les informations strictement nécessaires à la prise de contact (nom, adresse e-mail, numéro de téléphone, contenu du message). Aucun suivi publicitaire ni profilage automatisé n’est mis en place.",
-      ],
-    },
-    {
-      title: "Utilisation et conservation",
-      content: [
-        "Les données partagées servent uniquement à répondre aux sollicitations et à assurer le suivi des dossiers en cours. Elles sont conservées pour la durée strictement nécessaire aux échanges commerciaux, puis archivées de manière sécurisée.",
-      ],
-    },
-    {
-      title: "Vos droits",
-      content: [
-        "Vous pouvez à tout moment demander l’accès, la rectification ou la suppression de vos informations personnelles, ainsi que limiter leur traitement. Pour exercer ces droits, écrivez-nous à l’adresse : lbernaz@oikos-heritage.com.",
-      ],
-    },
-    {
-      title: "Sécurité",
-      content: [
-        "Nous mettons en place des mesures organisationnelles et techniques proportionnées pour préserver la confidentialité et l’intégrité des données (accès restreint, stockage protégé, revue régulière des accès).",
-      ],
-    },
-  ];
-
+function PrivacyPage({ copy }: { copy: TextContentCopy }) {
   return (
     <TextContentPage
-      eyebrow="Confidentialité"
-      title="Politique de confidentialité"
-      intro="Nous protégeons les informations confiées par nos clients et partenaires avec une attention particulière. Voici comment nous traitons et sécurisons les données personnelles."
-      sections={sections}
+      eyebrow={copy.eyebrow}
+      title={copy.title}
+      intro={copy.intro}
+      sections={copy.sections}
     />
   );
 }
 
-function LegalPage() {
-  const sections: TextSection[] = [
-    {
-      title: "Éditeur du site",
-      content: [
-        "Oikos Heritage – Louise Bernaz",
-        "Siège social : 12 rue fictive, 75000 Paris, France",
-        "Contact : lbernaz@oikos-heritage.com | +33 (0)6 20 30 06 19",
-      ],
-    },
-    {
-      title: "Responsabilité éditoriale",
-      content: [
-        "La directrice de la publication est Louise Bernaz, en sa qualité de fondatrice. Les contenus visuels et textuels sont la propriété exclusive d’Oikos Heritage, toute reproduction est soumise à autorisation préalable.",
-      ],
-    },
-    {
-      title: "Hébergement",
-      content: [
-        "Le site est hébergé par Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.",
-        "Contact : support@vercel.com",
-      ],
-    },
-    {
-      title: "Propriété intellectuelle",
-      content: [
-        "Les logos, typographies, photographies et contenus sont protégés par le droit d’auteur. Toute utilisation non autorisée pourra faire l’objet de poursuites conformément aux articles L.335-2 et suivants du Code de la propriété intellectuelle.",
-      ],
-    },
-  ];
-
+function LegalPage({ copy }: { copy: TextContentCopy }) {
   return (
     <TextContentPage
-      eyebrow="Légal"
-      title="Mentions légales"
-      intro="Ces informations présentent les coordonnées de l’éditeur, de l’hébergeur ainsi que le cadre juridique applicable au site Oikos Heritage."
-      sections={sections}
+      eyebrow={copy.eyebrow}
+      title={copy.title}
+      intro={copy.intro}
+      sections={copy.sections}
     />
   );
 }
@@ -304,12 +427,14 @@ function LegalPage() {
 /* --- PAGE PRINCIPALE --- */
 export default function Page() {
   const [page, setPage] = useState<"home" | "contact" | "privacy" | "legal">("home");
+  const [lang, setLang] = useState<LanguageKey>("fr");
   const [showHeroLogo, setShowHeroLogo] = useState(false);
   const [showFooterMeta, setShowFooterMeta] = useState(false);
   const heroRevealTimeoutRef = useRef<number | null>(null);
   const heroRevealFrameRef = useRef<number | null>(null);
   const HERO_LOGO_DELAY_MS = 500;
   const HERO_LOGO_TRANSITION_MS = 4200;
+  const t = TEXTS[lang];
 
   useEffect(() => {
     if (heroRevealTimeoutRef.current) {
@@ -362,7 +487,7 @@ export default function Page() {
   }, [page]);
 
   return (
-    <div className="min-h-screen bg-[#F2EDE6] text-neutral-900">
+    <div className="min-h-screen bg-[#EEE5D8] text-neutral-900">
       {/* Header */}
       <header className="container mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
         <div className="opacity-0 pointer-events-none">.</div>
@@ -373,18 +498,30 @@ export default function Page() {
             }
             className="transition-colors duration-200 hover:text-neutral-400"
           >
-            {page === "home" ? "Contact" : "Accueil"}
+            {page === "home" ? t.nav.toContact : t.nav.toHome}
           </button>
           <div className="flex items-center gap-3">
             <button
-              className="transition-colors duration-200 hover:text-neutral-400"
+              onClick={() => setLang("fr")}
+              className={[
+                "transition-colors duration-200 hover:text-neutral-400 lang-button",
+                lang === "fr"
+                  ? "text-neutral-900 lang-button-active"
+                  : "text-neutral-500",
+              ].join(" ")}
               aria-label="FR"
             >
               FR
             </button>
             <span className="opacity-30">/</span>
             <button
-              className="transition-colors duration-200 hover:text-neutral-400"
+              onClick={() => setLang("en")}
+              className={[
+                "transition-colors duration-200 hover:text-neutral-400 lang-button",
+                lang === "en"
+                  ? "text-neutral-900 lang-button-active"
+                  : "text-neutral-500",
+              ].join(" ")}
               aria-label="EN"
             >
               EN
@@ -396,45 +533,60 @@ export default function Page() {
       {page === "home" ? (
         <>
           {/* 1. Logo plein écran */}
-          <section className="container mx-auto px-4 md:px-8 h-screen grid place-items-center relative">
-            <img
-              src="/logo.png"
-              alt="Louise"
-              loading="eager"
-              decoding="sync"
-              className="h-44 md:h-64 w-auto mix-blend-multiply ease-[cubic-bezier(0.22,1,0.36,1)]"
-              style={{
-                transitionDuration: `${HERO_LOGO_TRANSITION_MS}ms`,
-                transitionProperty: "opacity, transform",
-                transitionTimingFunction: "cubic-bezier(0.2, 0.8, 0.2, 1)",
-                opacity: showHeroLogo ? 1 : 0,
-                transform: showHeroLogo
-                  ? "scale(1) translateY(-10px)"
-                  : "scale(0.96) translateY(12px)",
-              }}
-            />
+          <section className="hero">
+            <div className="hero-arc" aria-hidden="true" />
+            <div className="hero-content">
+              <div className="container mx-auto px-4 md:px-8 h-full grid place-items-center">
+                <div
+                  role="img"
+                  aria-label="Louise"
+                  className="h-44 md:h-64 w-full max-w-[520px] ease-[cubic-bezier(0.22,1,0.36,1)]"
+                  style={{
+                    aspectRatio: "1394 / 786",
+                    transitionDuration: `${HERO_LOGO_TRANSITION_MS}ms`,
+                    transitionProperty: "transform, filter",
+                    transitionTimingFunction: "cubic-bezier(0.2, 0.8, 0.2, 1)",
+                  backgroundColor: showHeroLogo
+                    ? undefined
+                    : "rgba(232,214,199,0.78)",
+                  filter: "blur(0px)",
+                  animation: `heroLogoColorReveal ${HERO_LOGO_TRANSITION_MS}ms forwards`,
+                  transform: "scale(1)",
+                    WebkitMaskImage: "url(/OIKOSBRUN.png)",
+                    maskImage: "url(/OIKOSBRUN.png)",
+                    WebkitMaskRepeat: "no-repeat",
+                    maskRepeat: "no-repeat",
+                    WebkitMaskPosition: "center",
+                    maskPosition: "center",
+                    WebkitMaskSize: "contain",
+                    maskSize: "contain",
+                  }}
+                />
+              </div>
+            </div>
           </section>
 
           {/* 2. Bandeau plein écran */}
           <section className="mt-16 md:mt-24 pb-16 md:pb-24">
             <Bandeau
-              mot={BANDEAU_PRINCIPAL.mot}
-              texte={BANDEAU_PRINCIPAL.texte}
-              video={BANDEAU_PRINCIPAL.video}
+              mot={t.bandeau.mot}
+              texte={t.bandeau.texte}
+              video={t.bandeau.video}
+              keywords={t.keywords}
             />
           </section>
 
           {/* 3. Philosophie */}
-          <section className="container mx-auto px-4 md:px-8 py-32 relative">
-            <div className="max-w-4xl mx-auto font-avant-garde text-neutral-800">
-              <h2 className="font-heading text-2xl md:text-3xl font-light tracking-[0.18em] text-neutral-800 mb-10">
-                Philosophie
+          <section className="container mx-auto px-4 md:px-8 py-32 relative -mt-8 md:-mt-16">
+            <div className="max-w-4xl mx-auto font-avant-garde-extra text-[#3a1f18]">
+              <h2 className="font-avant-garde-extra text-3xl md:text-4xl font-light text-[#2b150f] mb-12 tracking-[0.08em] uppercase">
+                {t.philosophyTitle}
               </h2>
               <div className="space-y-8">
-                {PHILOSOPHY_PARAGRAPHS.map((paragraph) => (
+                {t.philosophyParagraphs.map((paragraph) => (
                   <article
                     key={paragraph}
-                    className="font-avant-garde leading-relaxed text-base md:text-xl font-light text-[#3b1f1a] tracking-[0.08em]"
+                    className="font-avant-garde-extra leading-relaxed text-base md:text-xl text-[#140906]"
                     style={{ textAlign: "justify", textJustify: "inter-word" }}
                   >
                     {paragraph}
@@ -445,11 +597,11 @@ export default function Page() {
           </section>
         </>
       ) : page === "contact" ? (
-        <ContactPage />
+        <ContactPage copy={t.contact} />
       ) : page === "privacy" ? (
-        <PrivacyPage />
+        <PrivacyPage copy={t.privacy} />
       ) : (
-        <LegalPage />
+        <LegalPage copy={t.legal} />
       )}
 
       {page === "home" && (
@@ -466,13 +618,13 @@ export default function Page() {
               className="transition-colors duration-200 hover:text-neutral-400 text-left"
               onClick={() => setPage("privacy")}
             >
-              Politique de confidentialité
+              {t.footer.privacy}
             </button>
             <button
               className="transition-colors duration-200 hover:text-neutral-400 text-left"
               onClick={() => setPage("legal")}
             >
-              Mentions légales
+              {t.footer.legal}
             </button>
           </footer>
           <img

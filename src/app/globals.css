@@ -1,10 +1,19 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "AvantGardeExtraLight";
+  src: url("/fonts/ITCAvantGardeStd-ExtraLight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --background: #ffffff;
+  --background: #eee5d8;
   --foreground: #171717;
-  --font-heading: "ITC Avant Garde Gothic", "Avant Garde", "Avantgarde",
-    "Century Gothic", "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  --font-heading: "AvantGardeExtraLight", "ITC Avant Garde Gothic",
+    "Avant Garde", "Avantgarde", "Century Gothic", "Futura", "Helvetica Neue",
+    Arial, sans-serif;
   --font-geist-sans: "Helvetica Neue", "Montserrat", Arial, sans-serif;
   --font-geist-mono: "SFMono-Regular", "Roboto Mono", Menlo, monospace;
 }
@@ -37,12 +46,116 @@ body {
   text-transform: uppercase;
 }
 
+.font-heading-compact {
+  font-family: var(--font-heading);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
 .font-heading-alt {
   font-family: var(--font-heading);
   letter-spacing: 0.18em;
 }
 
 .font-avant-garde {
-  font-family: "Avant Garde", "ITC Avant Garde Gothic", "Avantgarde",
-    "Century Gothic", "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  font-family: "AvantGardeExtraLight", "ITC Avant Garde Gothic",
+    "Avant Garde", "Avantgarde", "Century Gothic", "Futura", "Helvetica Neue",
+    Arial, sans-serif;
+  font-weight: 200;
+  letter-spacing: 0.02em;
+}
+
+.font-futura {
+  font-family: "Futura", "Futura PT", "Avenir Next", "Avant Garde",
+    "ITC Avant Garde Gothic", "Avantgarde", "Century Gothic", "Montserrat",
+    "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+}
+
+.font-futura-thin {
+  font-family: "Futura", "Futura PT", "Avenir Next", "Avant Garde",
+    "ITC Avant Garde Gothic", "Avantgarde", "Century Gothic", "Montserrat",
+    "Helvetica Neue", Arial, sans-serif;
+  font-weight: 100;
+  letter-spacing: 0.02em;
+}
+
+.font-avant-garde-extra {
+  font-family: "AvantGardeExtraLight", "ITC Avant Garde Gothic",
+    "Avant Garde", "Avantgarde", "Century Gothic", "Futura", "Helvetica Neue",
+    Arial, sans-serif;
+  font-weight: 200;
+  letter-spacing: 0.02em;
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background: #eee5d8;
+  overflow: hidden;
+}
+
+.hero-arc {
+  position: absolute;
+  bottom: -40vh;
+  left: -60vh;
+  width: 140vh;
+  height: 140vh;
+  border-radius: 50%;
+  border: 6px solid #ffffff;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lang-button {
+  position: relative;
+  padding-bottom: 0.2rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.lang-button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.lang-button-active {
+  color: #2f1a15;
+  transform: translateY(-1px);
+}
+
+.lang-button-active::after {
+  transform: scaleX(1);
+}
+
+@keyframes heroLogoColorReveal {
+  0% {
+    background-color: rgba(232, 214, 199, 0.78);
+  }
+  35% {
+    background-color: rgba(206, 176, 158, 0.85);
+  }
+  65% {
+    background-color: rgba(150, 110, 92, 0.92);
+  }
+  100% {
+    background-color: rgba(94, 59, 44, 0.95);
+  }
 }

@@ -206,7 +206,7 @@ function Bandeau({
   mot: string;
   texte: string;
   video?: string;
-  keywords: string[];
+  keywords: ReadonlyArray<string>;
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [visibleKeywords, setVisibleKeywords] = useState<boolean[]>([]);

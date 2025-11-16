@@ -193,8 +193,8 @@ const TEXTS = {
 
 type LanguageKey = keyof typeof TEXTS;
 type TextSection = { title: string; content: readonly string[] };
-type TextContentCopy = typeof TEXTS["fr"]["privacy"];
-type ContactCopy = typeof TEXTS["fr"]["contact"];
+type TextContentCopy = (typeof TEXTS)[LanguageKey]["privacy"];
+type ContactCopy = (typeof TEXTS)[LanguageKey]["contact"];
 
 /* --- Bandeau sans images, avec accordéon CSS pur --- */
 function Bandeau({

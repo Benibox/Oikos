@@ -369,22 +369,47 @@ function TextContentPage({
   title,
   intro,
   sections,
+  variant = "default",
 }: {
   title: string;
   intro: string;
   sections: ReadonlyArray<TextSection>;
+  variant?: "default" | "compact";
 }) {
+  const isCompactPage = variant === "compact";
+
   return (
     <div className="min-h-screen bg-[#EEE5D8] flex flex-col justify-center px-6 md:px-12 py-16 text-neutral-900">
       <div className="max-w-4xl mx-auto space-y-12">
-        <div className="space-y-3 text-left">
-          <h1 className="font-heading text-2xl md:text-4xl">{title}</h1>
+        <div
+          className={[
+            "text-left",
+            isCompactPage ? "space-y-12 md:space-y-16" : "space-y-3",
+          ].join(" ")}
+        >
+          <h1
+            className={[
+              "font-heading",
+              isCompactPage ? "text-lg md:text-2xl" : "text-2xl md:text-4xl",
+            ].join(" ")}
+          >
+            {title}
+          </h1>
           <p className="text-base md:text-lg leading-relaxed text-neutral-700">{intro}</p>
         </div>
         <div className="space-y-10">
           {sections.map((section) => (
             <section key={section.title} className="space-y-3">
-              <h2 className="font-heading text-lg md:text-xl text-neutral-800">{section.title}</h2>
+              <h2
+                className={[
+                  isCompactPage
+                    ? "font-heading-relaxed text-base md:text-lg"
+                    : "font-heading text-lg md:text-xl",
+                  "text-neutral-800",
+                ].join(" ")}
+              >
+                {section.title}
+              </h2>
               {section.content.map((paragraph, idx) => (
                 <p key={idx} className="leading-relaxed text-sm md:text-base text-neutral-700">
                   {paragraph}
@@ -404,6 +429,7 @@ function PrivacyPage({ copy }: { copy: TextContentCopy }) {
       title={copy.title}
       intro={copy.intro}
       sections={copy.sections}
+      variant="compact"
     />
   );
 }
@@ -414,6 +440,7 @@ function LegalPage({ copy }: { copy: LegalCopy }) {
       title={copy.title}
       intro={copy.intro}
       sections={copy.sections}
+      variant="compact"
     />
   );
 }

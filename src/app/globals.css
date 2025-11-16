@@ -46,6 +46,12 @@ body {
   text-transform: uppercase;
 }
 
+.font-heading-relaxed {
+  font-family: var(--font-heading);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
 .font-heading-compact {
   font-family: var(--font-heading);
   letter-spacing: 0.05em;

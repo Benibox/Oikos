@@ -194,6 +194,7 @@ const TEXTS = {
 type LanguageKey = keyof typeof TEXTS;
 type TextSection = { title: string; content: readonly string[] };
 type TextContentCopy = (typeof TEXTS)[LanguageKey]["privacy"];
+type LegalCopy = (typeof TEXTS)[LanguageKey]["legal"];
 type ContactCopy = (typeof TEXTS)[LanguageKey]["contact"];
 
 /* --- Bandeau sans images, avec accordéon CSS pur --- */
@@ -413,7 +414,7 @@ function PrivacyPage({ copy }: { copy: TextContentCopy }) {
   );
 }
 
-function LegalPage({ copy }: { copy: TextContentCopy }) {
+function LegalPage({ copy }: { copy: LegalCopy }) {
   return (
     <TextContentPage
       eyebrow={copy.eyebrow}

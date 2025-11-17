@@ -233,10 +233,10 @@ function Bandeau({
   }, [keywords]);
 
   useEffect(() => {
-    const KEYWORD_BASE_DELAY = 1000;
-    const KEYWORD_VISIBLE_DURATION = 2600;
-    const KEYWORD_STAGGER = 2800;
-    const LOOP_PAUSE = 1600;
+    const KEYWORD_BASE_DELAY = 650;
+    const KEYWORD_STAGGER = 2100;
+    const KEYWORD_HOLD_DURATION = 2000;
+    const LOOP_PAUSE = 900;
 
     let timers: ReturnType<typeof setTimeout>[] = [];
     let loop: ReturnType<typeof setInterval> | null = null;
@@ -250,22 +250,34 @@ function Bandeau({
       });
     };
 
+    const hideAllKeywords = () => {
+      setVisibleKeywords(keywords.map(() => false));
+    };
+
+    const ensureAllVisible = () => {
+      setVisibleKeywords(keywords.map(() => true));
+    };
+
     const startSequence = () => {
       timers.forEach((timer) => clearTimeout(timer));
       timers = [];
-      setVisibleKeywords(keywords.map(() => false));
+      hideAllKeywords();
 
       keywords.forEach((_, index) => {
         const appearAt = KEYWORD_BASE_DELAY + index * KEYWORD_STAGGER;
-        const disappearAt = appearAt + KEYWORD_VISIBLE_DURATION;
 
         timers.push(
           setTimeout(() => scheduleVisibility(index, true), appearAt)
         );
-        timers.push(
-          setTimeout(() => scheduleVisibility(index, false), disappearAt)
-        );
       });
+
+      const lastAppear =
+        KEYWORD_BASE_DELAY + (keywords.length - 1) * KEYWORD_STAGGER;
+
+      timers.push(setTimeout(ensureAllVisible, lastAppear));
+      timers.push(
+        setTimeout(hideAllKeywords, lastAppear + KEYWORD_HOLD_DURATION)
+      );
     };
 
     startSequence();
@@ -273,7 +285,7 @@ function Bandeau({
     const totalDuration =
       KEYWORD_BASE_DELAY +
       (keywords.length - 1) * KEYWORD_STAGGER +
-      KEYWORD_VISIBLE_DURATION +
+      KEYWORD_HOLD_DURATION +
       LOOP_PAUSE;
 
     loop = setInterval(startSequence, totalDuration);

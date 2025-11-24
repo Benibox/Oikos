@@ -567,6 +567,7 @@ export default function Page() {
         <>
           {/* 1. Logo plein écran */}
           <section className="hero">
+            <div className="hero-arc" aria-hidden="true" />
             <div className="hero-content">
               <div className="container mx-auto px-4 md:px-8 h-full grid place-items-center">
                 <div

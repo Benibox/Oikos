@@ -96,10 +96,27 @@ body {
 }
 
 .hero {
+  --hero-arc-size: clamp(760px, 92vw, 1380px);
   position: relative;
   min-height: 100vh;
   background: #eee5d8;
   overflow: hidden;
+}
+
+.hero-arc {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 140vmin;
+  height: 140vmin;
+  background-image: url("/ARC2.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: left center;
+  transform: translate(-58%, -40%);
+  pointer-events: none;
+  z-index: 0;
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.04));
 }
 
 .hero-content {

@@ -474,6 +474,12 @@ export default function Page() {
   const HERO_LOGO_TRANSITION_MS = 4200;
   const t = TEXTS[lang];
 
+  // Preload contact illustration so it displays instantly when switching to Contact.
+  useEffect(() => {
+    const img = new window.Image();
+    img.src = "/contact-illustration.png";
+  }, []);
+
   useEffect(() => {
     if (heroRevealTimeoutRef.current) {
       clearTimeout(heroRevealTimeoutRef.current);

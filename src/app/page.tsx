@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const TEXTS = {
@@ -350,10 +351,14 @@ function ContactPage({ copy }: { copy: ContactCopy }) {
     <div className="min-h-screen bg-[#EEE5D8] flex flex-col justify-center items-center relative px-6 md:px-16 py-6 md:py-10">
       <div className="relative w-full max-w-4xl grid grid-cols-1 md:grid-cols-[1.2fr_minmax(220px,_0.9fr)] gap-6 md:gap-10 md:items-start md:pl-10 lg:pl-20 md:-translate-y-4">
         <div className="relative w-full flex justify-start">
-          <img
+          <Image
             src="/contact-illustration.png"
             alt="Oikos architecture"
+            width={4000}
+            height={2257}
+            priority
             className="w-full h-auto max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl object-contain md:ml-[7rem] lg:ml-[9rem]"
+            sizes="(min-width: 1280px) 820px, (min-width: 1024px) 720px, (min-width: 768px) 520px, 90vw"
           />
         </div>
         <div className="font-avant-garde text-[#3b1f1a] text-left space-y-3 tracking-[0.05em] md:self-start md:justify-self-start md:-translate-y-4 md:-translate-x-[7.5rem]">

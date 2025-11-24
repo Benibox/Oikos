@@ -352,11 +352,12 @@ function ContactPage({ copy }: { copy: ContactCopy }) {
       <div className="relative w-full max-w-4xl grid grid-cols-1 md:grid-cols-[1.2fr_minmax(220px,_0.9fr)] gap-6 md:gap-10 md:items-start md:pl-10 lg:pl-20 md:-translate-y-4">
         <div className="relative w-full flex justify-start">
           <Image
-            src="/contact-illustration.png"
+            src="/contact-illustration-optimized.png"
             alt="Oikos architecture"
-            width={4000}
-            height={2257}
+            width={2000}
+            height={1128}
             priority
+            loading="eager"
             className="w-full h-auto max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl object-contain md:ml-[7rem] lg:ml-[9rem]"
             sizes="(min-width: 1280px) 820px, (min-width: 1024px) 720px, (min-width: 768px) 520px, 90vw"
           />

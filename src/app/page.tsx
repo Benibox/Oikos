@@ -11,12 +11,13 @@ const TEXTS = {
         "Nous restaurons chaque lieu avec respect pour ses traces d’origine, afin de préserver l’âme des bâtisses et révéler un héritage contemporain.",
       video: "/videos/videobien.mp4",
     },
-    keywords: ["patrimoine", "lieux de vie", "rentabilité"],
+    keywords: ["patrimoine", "HARMONIE", "rentabilité"],
     philosophyTitle: "Philosophie",
     philosophyParagraphs: [
-      "Préserver l’âme. Oikos Heritage est née d’une conviction simple : la modernité ne vaut que lorsqu’elle dialogue avec la mémoire. Chaque projet s’attache à révéler l’histoire intime des lieux.",
-      "Habiter avec sens. Nous composons des intérieurs apaisants, baignés de lumière, qui honorent la matière. Les maisons deviennent des refuges vivants, pensés pour ceux qui les habitent et les transmettent.",
-      "Investir dans la durée. Ancrée dans les territoires, notre équipe collabore avec des artisans locaux afin de créer une valeur durable. Nous harmonisons beauté, pérennité et rentabilité pour faire du patrimoine un capital vivant.",
+      "Oikos Heritage souhaite commencer son chemin en bord de mer et redonner vie à des lieux chargés d’histoire pour raviver et ennoblir l’âme de chaque bâtis.",
+      "Chaque projet est pensé comme une œuvre unique, à la fois respectueuse et ambitieuse, qui relie intelligemment passé et présent.",
+      "Au cœur de la démarche : proposer une alternative à la frénésie du quotidien en offrant des lieux de vie merveilleux et authentiques.",
+      "Oikos Heritage, c’est croire que la modernité n’efface pas la beauté du passé, c’est investir là où chaque rivage, chaque pierre, chaque vague murmure l’histoire d’un monde où la beauté et la mémoire s’entrelacent.",
     ],
     nav: {
       toContact: "Contact",
@@ -107,9 +108,10 @@ const TEXTS = {
     keywords: ["heritage", "living spaces", "long-term value"],
     philosophyTitle: "Philosophy",
     philosophyParagraphs: [
-      "Preserving the soul. Oikos Heritage was born from one conviction: modernity only makes sense when it converses with memory. Each project carefully reveals the intimate story of the place.",
-      "Living with meaning. We craft calm, light-filled interiors that honor materials. Homes become living refuges, imagined for those who inhabit and pass them on.",
-      "Investing for the long run. Rooted in local regions, our team collaborates with artisans to build lasting value. We balance beauty, durability, and profitability so heritage remains a living asset.",
+      "Oikos Heritage seeks to begin its path by the sea, breathing life back into storied places to revive and ennoble the soul of every building.",
+      "Each project is conceived as a unique work, both respectful and ambitious, intelligently linking past and present.",
+      "At the heart of our approach: offering an alternative to daily frenzy by creating wonderful, authentic places to live.",
+      "Oikos Heritage believes modernity does not erase the beauty of the past; it invests where each shoreline, stone, and wave whispers the story of a world where beauty and memory intertwine.",
     ],
     nav: {
       toContact: "Contact",

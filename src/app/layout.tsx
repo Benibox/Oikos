@@ -30,9 +30,9 @@ export const metadata: Metadata = {
     canonical: SITE_URL,
   },
   icons: {
-    icon: "/kosbeige.png",
-    apple: "/kosbeige.png",
-    shortcut: "/kosbeige.png",
+    icon: "/contact-illustration-optimized.png",
+    apple: "/contact-illustration-optimized.png",
+    shortcut: "/contact-illustration-optimized.png",
   },
   openGraph: {
     type: "website",
@@ -91,6 +91,15 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
+        <link
+          rel="icon"
+          href="/contact-illustration-optimized.png"
+          sizes="any"
+        />
+        <link
+          rel="apple-touch-icon"
+          href="/contact-illustration-optimized.png"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
